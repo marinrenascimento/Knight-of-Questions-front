@@ -44,3 +44,11 @@ export async function createUser(payload, token) {
         token,
     });
 }
+
+export async function register(payload) {
+    return request('/auth/register', {
+        method: 'POST',
+        body: payload,
+    });
+}
+

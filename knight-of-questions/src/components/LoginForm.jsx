@@ -2,7 +2,7 @@ import { useState } from 'react';
 import './LoginForm.css';
 import loginImage from '../assets/login.jpg';
 
-export default function LoginForm({ onLogin, loading }) {
+export default function LoginForm({ onLogin, onNavigateToRegister, loading }) {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [rememberMe, setRememberMe] = useState(true);
@@ -77,7 +77,7 @@ export default function LoginForm({ onLogin, loading }) {
                         <button
                             className="login-form__btn-secondary"
                             type="button"
-                            onClick={() => {/* navegar para cadastro */ }}
+                            onClick={onNavigateToRegister}
                         >
                             Não tem conta? Cadastre-se
                         </button>

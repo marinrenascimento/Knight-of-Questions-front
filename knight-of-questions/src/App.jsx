@@ -1,10 +1,11 @@
 import { useEffect, useState } from 'react';
 
 import LoginForm from './components/LoginForm.jsx';
+import RegisterForm from './components/RegisterForm.jsx';
 import PostList from './components/PostList.jsx';
 import UserForm from './components/UserForm.jsx';
 import UserList from './components/UserList.jsx';
-import { createUser, getPostsByUserId, getUsers, login } from './services/api.js';
+import { createUser, getPostsByUserId, getUsers, login, register } from './services/api.js';
 
 const STORAGE_KEY = 'aulafront_auth';
 
@@ -32,6 +33,7 @@ export default function App() {
   const [token, setToken] = useState(storedAuth?.token || '');
   const [currentUser, setCurrentUser] = useState(storedAuth?.user || null);
   const [screen, setScreen] = useState('users');
+  const [authScreen, setAuthScreen] = useState('login');
   const [users, setUsers] = useState([]);
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -49,6 +51,7 @@ export default function App() {
     setUsers([]);
     setPosts([]);
     setScreen('users');
+    setAuthScreen('login');
   }
 
   async function handleLogin(payload) {
@@ -56,6 +59,19 @@ export default function App() {
     try {
       const data = await login(payload);
       persistAuth(data.accessToken, data.user);
+    } catch (error) {
+      window.alert(error.message);
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  async function handleRegister(payload) {
+    setLoading(true);
+    try {
+      await register(payload);
+      window.alert('Conta criada com sucesso! Faça login para continuar.');
+      setAuthScreen('login');
     } catch (error) {
       window.alert(error.message);
     } finally {
@@ -122,7 +138,19 @@ export default function App() {
   if (!token) {
     return (
       <main>
-        <LoginForm onLogin={handleLogin} loading={loading} />
+        {authScreen === 'login' ? (
+          <LoginForm
+            onLogin={handleLogin}
+            onNavigateToRegister={() => setAuthScreen('register')}
+            loading={loading}
+          />
+        ) : (
+          <RegisterForm
+            onRegister={handleRegister}
+            onNavigateToLogin={() => setAuthScreen('login')}
+            loading={loading}
+          />
+        )}
       </main>
     );
   }
