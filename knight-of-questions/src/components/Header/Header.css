@@ -9,7 +9,7 @@
 }
 
 .logo-placeholder {
-  color: #FFC107; /* A yellow color close to the original logo */
+  color: #FFC107;
   text-shadow: 2px 2px 0 #000, -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
   line-height: 1.2;
 }
@@ -35,8 +35,10 @@
   color: var(--text-dark);
 }
 
-.nav-link:hover, .nav-link.active {
+.nav-link:hover,
+.nav-link.active {
   opacity: 0.8;
+  color: white
 }
 
 .nav-separator {
