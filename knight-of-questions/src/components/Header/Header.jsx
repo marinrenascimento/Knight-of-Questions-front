@@ -1,0 +1,48 @@
+import React from 'react';
+import { Link, useLocation } from 'react-router-dom';
+import './Header.css';
+
+export default function Header({ currentUser, logout, perfilPontos }) {
+  const location = useLocation();
+
+  const userName = currentUser?.name || currentUser?.email || 'Visitante';
+  const pontos = perfilPontos?.pontos ?? '—';
+  const rank = perfilPontos?.rank ?? '—';
+  const nivel = perfilPontos?.nivel ?? 0;
+
+  return (
+    <header className="kq-header">
+      <div className="header-logo">
+        <div className="logo-placeholder pixel-text">
+          <span className="logo-knight">KNIGHT OF</span>
+          <br />
+          <span className="logo-questions">QUESTIONS</span>
+        </div>
+      </div>
+      
+      <nav className="header-nav">
+        <Link to="/" className={`nav-link ${location.pathname === '/' ? 'active' : ''}`}>Home</Link>
+        <span className="nav-separator">|</span>
+        <Link to="/rank" className={`nav-link ${location.pathname === '/rank' ? 'active' : ''}`}>Rank</Link>
+        <span className="nav-separator">|</span>
+        <Link to="/help" className={`nav-link ${location.pathname === '/help' ? 'active' : ''}`}>Help</Link>
+      </nav>
+
+      <div className="header-profile">
+        <div className="profile-coins">
+          <div className="coin-icon">💰</div>
+          <div className="coin-info">
+            <span className="coin-amount">{pontos.toLocaleString('pt-BR')}</span>
+            <span className="user-rank">{rank} • Nv.{nivel} • {userName}</span>
+          </div>
+        </div>
+        <div className="profile-avatar">
+          <div className="avatar-icon">👤</div>
+        </div>
+        <button className="logout-button" onClick={logout} title="Sair">
+          Sair
+        </button>
+      </div>
+    </header>
+  );
+}
