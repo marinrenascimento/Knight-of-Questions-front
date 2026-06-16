@@ -12,12 +12,25 @@
 
 .home-page {
     min-height: 100vh;
-    background: var(--koq-page-bg);
+    display: flex;
+    flex-direction: column;
     font-family: 'Inter', sans-serif;
+    padding: 20px;
+    background-color: var(--bg-color);
+}
+
+.home-content {
+    flex: 1;
+    padding: 30px 40px;
+    background-color: #F5F7F5;
+    border-radius: 0 0 12px 12px;
 }
 
 .home-top {
-    position: relative;
+    margin: 0 -20px;
+    background-color: #F5F7F5;
+    border-radius: 12px 12px 0 0;
+    overflow: hidden;
 }
 
 .home-header {

@@ -2,7 +2,7 @@
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  padding: 20px; /* Optional padding to keep the dark background frame visible */
+  padding: 20px;
 }
 
 .report-content {
@@ -26,7 +26,8 @@
   gap: 15px;
 }
 
-.back-btn, .filter-btn {
+.back-btn,
+.filter-btn {
   background-color: var(--bar-filled);
   color: white;
   border: none;
@@ -84,8 +85,6 @@
   gap: 10px;
 }
 
-/* --- Loading & Erro --- */
-
 .loading-container {
   display: flex;
   flex-direction: column;
@@ -105,7 +104,9 @@
 }
 
 @keyframes spin {
-  to { transform: rotate(360deg); }
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 .loading-text {
@@ -127,8 +128,6 @@
   color: #c0392b;
   letter-spacing: 0.5px;
 }
-
-/* --- Atividades --- */
 
 .atividades-container {
   display: flex;
