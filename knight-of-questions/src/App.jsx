@@ -1,15 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
-import LoginForm from './components/LoginForm.jsx';
-import RegisterForm from './components/RegisterForm.jsx';
-import PostList from './components/PostList.jsx';
-import UserForm from './components/UserForm.jsx';
-import UserList from './components/UserList.jsx';
+import LoginForm from './pages/Login/LoginForm.jsx';
+import RegisterForm from './pages/Register/RegisterForm.jsx';
 import Home from './pages/Home/Home.jsx';
 import { useToast } from './components/Toast';
 import RelatorioMensal from './pages/RelatorioMensal/RelatorioMensal';
 import RelatorioSemanal from './pages/RelatorioSemanal/RelatorioSemanal';
-import { createUser, getPostsByUserId, getUsers, login, register, getPontos } from './services/api.js';
+import { createUser, getUsers, login, register, getPontos } from './services/api.js';
 
 const STORAGE_KEY = 'aulafront_auth';
 
