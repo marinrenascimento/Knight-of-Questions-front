@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom'; // ✅ adicionar import
+import { useNavigate } from 'react-router-dom';
 import './Home.css';
 
 import bannerImg from '../../assets/home-banner-completo.png';
@@ -23,8 +23,8 @@ function getAuth() {
     }
 }
 
-export default function Home({ currentUser, logout, perfilPontos }) { // ✅ removeu onNavigate
-    const navigate = useNavigate(); // ✅ hook de navegação
+export default function Home({ currentUser, logout, perfilPontos }) {
+    const navigate = useNavigate();
     const [user, setUser] = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
@@ -74,7 +74,7 @@ export default function Home({ currentUser, logout, perfilPontos }) { // ✅ rem
         { key: 'questoes', label: 'Questões', img: questoesImg, route: null },
         { key: 'jogos', label: 'Jogos', img: jogosImg, route: null },
         { key: 'decks', label: 'Decks', img: decksImg, route: null },
-        { key: 'relatorios', label: 'Relatórios', img: relatoriosImg, route: '/mensal' }, // ✅ rota definida
+        { key: 'relatorios', label: 'Relatórios', img: relatoriosImg, route: '/mensal' },
     ];
 
     return (
@@ -84,7 +84,7 @@ export default function Home({ currentUser, logout, perfilPontos }) { // ✅ rem
                 <div className="home-banner">
                     <img src={bannerImg} alt="Knight of Questions" className="home-banner__img" />
                 </div>
-                <img src={knightImg} alt="" className="home-knight" />
+                <img src={knightImg} alt="Imagem de cavalheiro" className="home-knight" />
             </div>
 
             {error && <p className="home-error">{error}</p>}
