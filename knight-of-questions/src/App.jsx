@@ -5,7 +5,7 @@ import RegisterForm from './components/RegisterForm.jsx';
 import PostList from './components/PostList.jsx';
 import UserForm from './components/UserForm.jsx';
 import UserList from './components/UserList.jsx';
-import Home from './components/Home.jsx';
+import Home from './pages/Home/Home.jsx';
 import { useToast } from './components/Toast';
 import RelatorioMensal from './pages/RelatorioMensal/RelatorioMensal';
 import RelatorioSemanal from './pages/RelatorioSemanal/RelatorioSemanal';
@@ -33,6 +33,7 @@ export default function App() {
   const [screen, setScreen] = useState('home');
   const [authScreen, setAuthScreen] = useState('login');
   const [loading, setLoading] = useState(false);
+  const [users, setUsers] = useState([]);
   const { showToast } = useToast();
 
   const [perfilPontos, setPerfilPontos] = useState({
@@ -81,7 +82,7 @@ export default function App() {
     try {
       const data = await login(payload);
       persistAuth(data.accessToken, data.user);
-      showToast(`Bem-vindo, ${data.user.nome || data.user.username}!`, 'success');
+      showToast(`Bem-vindo(a), ${data.user.nome || data.user.username}!`, 'success');
     } catch (error) {
       showToast(error.message, 'error');
     } finally {
@@ -118,22 +119,6 @@ export default function App() {
     }
   }
 
-  async function loadPosts() {
-    if (!token || !currentUser?.id) {
-      return;
-    }
-
-    setLoading(true);
-    try {
-      const data = await getPostsByUserId(currentUser.id, token);
-      setPosts(data);
-    } catch (error) {
-      window.alert(error.message);
-    } finally {
-      setLoading(false);
-    }
-  }
-
   async function handleCreateUser(payload) {
     setLoading(true);
     try {
@@ -155,7 +140,6 @@ export default function App() {
       return;
     }
 
-    loadPosts();
   }, [token, screen, currentUser?.id]);
 
   if (!token) {
@@ -187,47 +171,14 @@ export default function App() {
 
   return (
     <BrowserRouter>
-      <Routes>
-        <Route
-          path="/"
-          element={<RelatorioMensal {...sharedProps} />}
-        />
-        <Route
-          path="/semanal"
-          element={<RelatorioSemanal {...sharedProps} />}
-        />
-        <Route path="*" element={<Navigate to="/" />} />
-      </Routes>
+      <main className="container">
+        <Routes>
+          <Route path="/" element={<Home {...sharedProps} />} />
+          <Route path="/semanal" element={<RelatorioSemanal {...sharedProps} />} />
+          <Route path="/mensal" element={<RelatorioMensal {...sharedProps} />} />
+          <Route path="*" element={<Navigate to="/" />} />
+        </Routes>
+      </main>
     </BrowserRouter>
-    
-    <main className="container">
-      <header className="header">
-        <h1>React Web + API de Alunos</h1>
-        <p>
-          Usuário autenticado: <strong>{currentUser?.name || currentUser?.email}</strong>
-        </p>
-      </header>
-
-      <section className="card nav-card">
-        <button type="button" onClick={() => setScreen('users')} disabled={screen === 'users'}>
-          Tela de usuários
-        </button>
-        <button type="button" onClick={() => setScreen('posts')} disabled={screen === 'posts'}>
-          Tela de posts
-        </button>
-        <button type="button" className="secondary" onClick={logout}>
-          Sair
-        </button>
-      </section>
-
-      {screen === 'users' ? (
-        <>
-          <UserForm onCreate={handleCreateUser} loading={loading} />
-          <UserList users={users} loading={loading} onReload={loadUsers} />
-        </>
-      ) : (
-        <PostList posts={posts} loading={loading} onReload={loadPosts} />
-      )}
-    </main>
   );
 }
