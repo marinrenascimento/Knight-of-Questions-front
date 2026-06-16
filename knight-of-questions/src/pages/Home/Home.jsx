@@ -10,6 +10,7 @@ import jogosImg from '../../assets/card-jogos.png';
 import relatoriosImg from '../../assets/card-relatorios.png';
 import Header from '../../components/Header/Header';
 import { getDadosMensal } from '../../services/relatorioService';
+import { getAcessosRecentes } from '../../services/api';
 
 const STORAGE_KEY = 'aulafront_auth';
 
@@ -29,6 +30,7 @@ export default function Home({ currentUser, logout, perfilPontos }) {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const [dados, setDados] = useState(null);
+    const [acessosRecentes, setAcessosRecentes] = useState(null);
 
     useEffect(() => {
         async function loadUser() {
@@ -51,6 +53,13 @@ export default function Home({ currentUser, logout, perfilPontos }) {
                 if (!stored?.token || !stored?.user?.id) {
                     throw new Error('Usuário não encontrado. Faça login novamente.');
                 }
+
+                const recentes = await getAcessosRecentes(
+                    stored.user.id,
+                    stored.token
+                );
+
+                setAcessosRecentes(recentes);
 
                 const response = await fetch(`http://localhost:3000/users/view/${stored.user.id}`, {
                     headers: {
@@ -77,6 +86,26 @@ export default function Home({ currentUser, logout, perfilPontos }) {
         { key: 'relatorios', label: 'Relatórios', img: relatoriosImg, route: '/mensal' },
     ];
 
+    const acessos = [];
+
+    if (acessosRecentes?.deck_recente) {
+        acessos.push({
+            id: acessosRecentes.deck_recente.id,
+            titulo: acessosRecentes.deck_recente.deck_nome,
+            descricao: acessosRecentes.deck_recente.deck_descricao,
+            tipo: 'Deck',
+        });
+    }
+
+    if (acessosRecentes?.avaliacao_recente) {
+        acessos.push({
+            id: acessosRecentes.avaliacao_recente.id,
+            titulo: acessosRecentes.avaliacao_recente.nome,
+            descricao: 'Avaliação',
+            tipo: 'Avaliação',
+        });
+    }
+
     return (
         <div className="home-page">
             <Header currentUser={currentUser} logout={logout} perfilPontos={perfilPontos} />
@@ -93,9 +122,35 @@ export default function Home({ currentUser, logout, perfilPontos }) {
                 <aside className="home-recent">
                     <h3 className="home-recent__title">Acessos Recentes</h3>
                     <div className="home-recent__grid">
-                        {Array.from({ length: 4 }).map((_, i) => (
-                            <button key={i} className="home-recent__item" aria-label={`Acesso recente ${i + 1}`} />
-                        ))}
+
+                        {acessos.length === 0 ? (
+                            <div className="home-recent__empty">
+                                <div className="home-recent__empty-icon">🎒</div>
+                                <p>O diário de aventuras está vazio.</p>
+                                <span>
+                                    Que tal começar uma jornada?
+                                </span>
+                            </div>
+                        ) : (
+                            acessos.map((item) => (
+                                <button
+                                    key={item.id}
+                                    className="home-recent__card"
+                                >
+                                    <div className="home-recent__card-icon">
+                                        {item.tipo === 'deck' ? '📚' : '📜'}
+                                    </div>
+
+                                    <div className="home-recent__card-content">
+                                        <h4 className="home-recent__title">{item.tipo === 'deck' ? 'Último Deck' : 'Última Avaliação'}</h4>
+                                        <h2 className="pixel-text section-title">
+                                            {item.titulo}
+                                        </h2>
+                                    </div>
+                                </button>
+                            ))
+                        )}
+
                     </div>
                 </aside>
 

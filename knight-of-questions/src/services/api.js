@@ -52,8 +52,6 @@ export async function register(payload) {
     });
 }
 
-// --- Relatórios ---
-
 export async function getPontos(token) {
     return request('/pontos', { token });
 }
@@ -70,3 +68,6 @@ export async function getTempoSessao(userId, token) {
     return request(`/sessao/tempo/${userId}`, { token });
 }
 
+export async function getAcessosRecentes(userId, token) {
+    return request(`/acessos-recentes/${userId}`, { token });
+}
