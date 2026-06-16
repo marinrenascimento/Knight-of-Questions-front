@@ -3,7 +3,7 @@ import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import LoginForm from './pages/Login/LoginForm.jsx';
 import RegisterForm from './pages/Register/RegisterForm.jsx';
 import Home from './pages/Home/Home.jsx';
-import { useToast } from './components/Toast';
+import { useToast } from './components/Alerta/Toast.jsx';
 import RelatorioMensal from './pages/RelatorioMensal/RelatorioMensal';
 import RelatorioSemanal from './pages/RelatorioSemanal/RelatorioSemanal';
 import { createUser, getUsers, login, register, getPontos } from './services/api.js';
@@ -39,7 +39,6 @@ export default function App() {
     rank: '—',
   });
 
-  // Busca pontos reais sempre que o token muda (login ou refresh)
   useEffect(() => {
     if (!token) return;
 
@@ -52,7 +51,6 @@ export default function App() {
           rank: dados.rank ?? '—',
         });
       } catch {
-        // Silencioso: mantém valores padrão se falhar
       }
     }
 
@@ -141,7 +139,12 @@ export default function App() {
 
   if (!token) {
     return (
-      <main>
+      <main style={{
+        backgroundColor: 'var(--bg-color)',
+        minHeight: '100vh',
+        padding: '20px',
+      }
+      }>
         {authScreen === 'login' ? (
           <LoginForm
             onLogin={handleLogin}
@@ -155,11 +158,10 @@ export default function App() {
             loading={loading}
           />
         )}
-      </main>
+      </main >
     );
   }
 
-  // Props compartilhadas com todas as telas autenticadas
   const sharedProps = {
     currentUser,
     logout,

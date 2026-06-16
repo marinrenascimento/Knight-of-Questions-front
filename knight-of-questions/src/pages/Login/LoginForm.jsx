@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import './LoginForm.css';
 import loginImage from '../../assets/login.jpg';
-import { useToast } from '../../components/Toast';
+import { useToast } from '../../components/Alerta/Toast';
 
 export default function LoginForm({ onLogin, onNavigateToRegister, loading }) {
     const [username, setUsername] = useState('');

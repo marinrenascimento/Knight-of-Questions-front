@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import './RegisterForm.css';
 import loginImage from '../../assets/login.jpg';
-import { useToast } from '../../components/Toast';
+import { useToast } from '../../components/Alerta/Toast';
 
 export default function RegisterForm({ onRegister, onNavigateToLogin, loading }) {
     const [nome, setNome] = useState('');

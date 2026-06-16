@@ -17,12 +17,14 @@
     display: flex;
     height: 100vh;
     overflow: hidden;
+    border-radius: 12px;
     font-family: 'Inter', sans-serif;
     background: var(--koq-bg);
+    height: calc(100vh - 40px);
 }
 
 .login-hero {
-    height: 100vh;
+    height: calc(100vh - 40px);
     aspect-ratio: 1 / 1;
     flex-shrink: 0;
     background-size: cover;
