@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom'; // ✅ adicionar import
 import './Home.css';
 
-import bannerImg from '../../assets/home-banner.png';
+import bannerImg from '../../assets/home-banner-completo.png';
 import knightImg from '../../assets/home-knight.png';
 import questoesImg from '../../assets/card-questoes.png';
 import decksImg from '../../assets/card-decks.png';
