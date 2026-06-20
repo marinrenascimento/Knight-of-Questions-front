@@ -5,6 +5,7 @@ import RegisterForm from './components/RegisterForm.jsx';
 import PostList from './components/PostList.jsx';
 import UserForm from './components/UserForm.jsx';
 import UserList from './components/UserList.jsx';
+import Help from './components/Help.jsx';
 import { createUser, getPostsByUserId, getUsers, login, register } from './services/api.js';
 
 const STORAGE_KEY = 'aulafront_auth';
@@ -135,25 +136,26 @@ export default function App() {
     loadPosts();
   }, [token, screen, currentUser?.id]);
 
-  if (!token) {
-    return (
-      <main>
-        {authScreen === 'login' ? (
-          <LoginForm
-            onLogin={handleLogin}
-            onNavigateToRegister={() => setAuthScreen('register')}
-            loading={loading}
-          />
-        ) : (
-          <RegisterForm
-            onRegister={handleRegister}
-            onNavigateToLogin={() => setAuthScreen('login')}
-            loading={loading}
-          />
-        )}
-      </main>
-    );
-  }
+
+    if (!token) {
+      return (
+        <main>
+          {authScreen === 'login' ? (
+            <LoginForm
+              onLogin={handleLogin}
+              onNavigateToRegister={() => setAuthScreen('register')}
+              loading={loading}
+            />
+          ) : (
+            <RegisterForm
+              onRegister={handleRegister}
+              onNavigateToLogin={() => setAuthScreen('login')}
+              loading={loading}
+            />
+          )}
+        </main>
+      );
+    }
 
   return (
     <main className="container">
@@ -171,6 +173,9 @@ export default function App() {
         <button type="button" onClick={() => setScreen('posts')} disabled={screen === 'posts'}>
           Tela de posts
         </button>
+        <button type="button" onClick={() => setScreen('help')} disabled={screen === 'help'}>
+          Ajuda
+        </button>
         <button type="button" className="secondary" onClick={logout}>
           Sair
         </button>
@@ -181,9 +186,17 @@ export default function App() {
           <UserForm onCreate={handleCreateUser} loading={loading} />
           <UserList users={users} loading={loading} onReload={loadUsers} />
         </>
+      ) : screen === 'help' ? (
+        <Help />
       ) : (
+     
         <PostList posts={posts} loading={loading} onReload={loadPosts} />
+        
+  
       )}
-    </main>
-  );
+       </main>
+      );
+      
 }
+
+  

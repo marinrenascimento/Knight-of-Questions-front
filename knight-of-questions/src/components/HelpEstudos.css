@@ -1,0 +1,91 @@
+.help-estudos-container {
+    min-height: 100vh;
+    background: #f3f3f3;
+    padding: 20px;
+    font-family: Arial, sans-serif;
+}
+
+.help-estudos-topbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #d7e3d2;
+    padding: 15px 25px;
+    border-radius: 12px;
+}
+
+.help-estudos-logo {
+    color: #c49a00;
+    font-weight: bold;
+    font-size: 20px;
+}
+
+.help-estudos-nav {
+    display: flex;
+    gap: 30px;
+    font-weight: bold;
+}
+
+.help-estudos-user {
+    background: #003f3f;
+    color: white;
+    padding: 10px 15px;
+    border-radius: 20px;
+    text-align: center;
+}
+
+.help-estudos-back {
+    margin-top: 20px;
+    border: none;
+    background: #003f3f;
+    color: white;
+    padding: 10px 15px;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.help-estudos-title {
+    text-align: center;
+    margin: 25px 0;
+}
+
+.help-estudos-icon {
+    font-size: 50px;
+}
+
+.help-estudos-title h1 {
+    margin: 10px 0;
+}
+
+.help-estudos-cards {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.help-estudos-card {
+    background: #d7e3d2;
+    padding: 20px;
+    border-radius: 12px;
+}
+
+.help-estudos-card h2 {
+    margin-top: 0;
+    font-size: 18px;
+}
+
+.help-estudos-support {
+    text-align: center;
+    margin-top: 25px;
+}
+
+.help-estudos-support button {
+    margin-top: 10px;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 10px;
+    background: #003f3f;
+    color: white;
+    cursor: pointer;
+}
+
