@@ -49,4 +49,4 @@ export default function HelpFeedback({ onBack }) {
             </section>
         </main>
     );
-12}
+}
