@@ -1,4 +1,3 @@
-import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import './Header.css';
 
@@ -19,7 +18,7 @@ export default function Header({ currentUser, logout, perfilPontos }) {
           <span className="logo-questions">QUESTIONS</span>
         </div>
       </div>
-      
+
       <nav className="header-nav">
         <Link to="/" className={`nav-link ${location.pathname === '/' ? 'active' : ''}`}>Home</Link>
         <span className="nav-separator">|</span>

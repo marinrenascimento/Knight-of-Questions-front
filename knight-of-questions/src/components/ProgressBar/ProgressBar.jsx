@@ -1,4 +1,3 @@
-import React from 'react';
 import './ProgressBar.css';
 
 export default function ProgressBar({ label, percentage }) {

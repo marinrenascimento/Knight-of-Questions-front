@@ -37,7 +37,6 @@
   font-weight: bold;
 }
 
-/* Vertical */
 .bar-chart.vertical {
   flex-direction: row;
   justify-content: space-around;
@@ -60,7 +59,7 @@
   width: 50px;
   display: flex;
   align-items: flex-end;
-  background-color: transparent; /* No background track on vertical in image */
+  background-color: transparent;
 }
 
 .bar-fill-vertical {
