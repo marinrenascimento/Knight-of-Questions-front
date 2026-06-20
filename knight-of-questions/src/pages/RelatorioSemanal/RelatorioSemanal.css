@@ -1,8 +1,3 @@
-/* RelatorioSemanal.css — estilos específicos da tela semanal.
-   Os estilos compartilhados (layout, cards, loading, atividades)
-   vêm de RelatorioMensal.css que é importado no componente. */
-
-/* Sobrescreve a cor do botão filtro para usar ícone de refresh */
 .filter-btn {
   font-size: 20px;
   transition: transform 0.3s ease;

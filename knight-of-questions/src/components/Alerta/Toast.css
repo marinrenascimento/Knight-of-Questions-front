@@ -41,26 +41,22 @@
     }
 }
 
-/* Success: Green */
 .toast--success {
     background-color: #10b981;
     border-left: 4px solid #047857;
 }
 
-/* Error: Red */
 .toast--error {
     background-color: #ef4444;
     border-left: 4px solid #b91c1c;
 }
 
-/* Warning: Yellow */
 .toast--warning {
     background-color: #f59e0b;
     border-left: 4px solid #b45309;
     color: #ffffff;
 }
 
-/* Info: Blue */
 .toast--info {
     background-color: #3b82f6;
     border-left: 4px solid #1d4ed8;

@@ -1,0 +1,90 @@
+.help-feedback-container {
+    min-height: 100vh;
+    background: #f3f3f3;
+    padding: 20px;
+    font-family: Arial, sans-serif;
+}
+
+.help-feedback-topbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #d7e3d2;
+    padding: 15px 25px;
+    border-radius: 12px;
+}
+
+.help-feedback-logo {
+    color: #c49a00;
+    font-weight: bold;
+    font-size: 20px;
+}
+
+.help-feedback-nav {
+    display: flex;
+    gap: 30px;
+    font-weight: bold;
+}
+
+.help-feedback-user {
+    background: #003f3f;
+    color: white;
+    padding: 10px 15px;
+    border-radius: 20px;
+    text-align: center;
+}
+
+.help-feedback-back {
+    margin-top: 20px;
+    border: none;
+    background: #003f3f;
+    color: white;
+    padding: 10px 15px;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.help-feedback-title {
+    text-align: center;
+    margin: 25px 0;
+}
+
+.help-feedback-icon {
+    font-size: 50px;
+}
+
+.help-feedback-title h1 {
+    margin: 10px 0;
+}
+
+.help-feedback-cards {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.help-feedback-card {
+    background: #d7e3d2;
+    padding: 20px;
+    border-radius: 12px;
+}
+
+.help-feedback-card h2 {
+    margin-top: 0;
+    font-size: 18px;
+}
+
+.help-feedback-support {
+    text-align: center;
+    margin-top: 25px;
+}
+
+.help-feedback-support button {
+    margin-top: 10px;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 10px;
+    background: #003f3f;
+    color: white;
+    cursor: pointer;
+}
