@@ -9,7 +9,6 @@ import RelatorioSemanal from './pages/RelatorioSemanal/RelatorioSemanal';
 import MinhasProvas from './pages/Avaliacoes/MinhasProvas.jsx';
 import { createUser, getUsers, login, register, getPontos } from './services/api.js';
 import Help from './components/Help.jsx';
-import { login, register, getPontos } from './services/api.js';
 
 const STORAGE_KEY = 'aulafront_auth';
 

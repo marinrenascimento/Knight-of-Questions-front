@@ -201,16 +201,16 @@ export default function MinhasProvas({ currentUser, logout, perfilPontos }) {
     };
 
     const handleSaveManualExam = async (e) => {
-            e.preventDefault();
-            if (!newExamName.trim()) {
-                alert('Digite o nome da prova.');
-                return;
-            }
-            alert(`Prova "${newExamName}" salva com sucesso contendo ${linkedQuestions.length} questões!`);
-            setShowManualExamModal(false);
-            setNewExamName('');
-            setLinkedQuestions([]);
-            carregarAvaliacoes();
+        e.preventDefault();
+        if (!newExamName.trim()) {
+            alert('Digite o nome da prova.');
+            return;
+        }
+        alert(`Prova "${newExamName}" salva com sucesso contendo ${linkedQuestions.length} questões!`);
+        setShowManualExamModal(false);
+        setNewExamName('');
+        setLinkedQuestions([]);
+        carregarAvaliacoes();
     };
 
     const handleOpenExam = async (examId) => {
@@ -376,10 +376,10 @@ export default function MinhasProvas({ currentUser, logout, perfilPontos }) {
                         <div style={{ display: 'flex', gap: '15px', alignItems: 'flex-end', marginBottom: '25px' }}>
                             <div className="form-group" style={{ flex: 1, marginBottom: 0 }}>
                                 <label className="pixel-text label-sm" style={{ fontWeight: 'bold', color: '#000', marginBottom: '5px' }}>Nome da prova</label>
-                                <input 
-                                    type="text" 
-                                    className="kq-input" 
-                                    placeholder="Digite o nome do deck" 
+                                <input
+                                    type="text"
+                                    className="kq-input"
+                                    placeholder="Digite o nome do deck"
                                     value={newExamName}
                                     onChange={(e) => setNewExamName(e.target.value)}
                                     style={{ background: '#b8d0bc', border: '1px solid #7a9a82', borderRadius: '4px', color: '#555' }}
@@ -676,7 +676,7 @@ export default function MinhasProvas({ currentUser, logout, perfilPontos }) {
                             <span className="back-arrow">&#9664;</span>
                         </button>
                         <h2 className="pixel-text section-title uppercase">
-                            {viewMode === 'grid' ? (filter === 'minhas' ? 'Minhas Provas' : 'Vestibulares') : activeExam?.titulo}
+                            {viewMode === 'grid' ? (filter === 'minhas' ? 'Questões' : 'Vestibulares') : activeExam?.titulo}
                         </h2>
                     </div>
 
