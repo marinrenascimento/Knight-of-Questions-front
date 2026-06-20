@@ -1,11 +1,13 @@
 import { useState } from 'react';
 import './LoginForm.css';
-import loginImage from '../assets/login.jpg';
+import loginImage from '../../assets/login.jpg';
+import { useToast } from '../../components/Alerta/Toast';
 
 export default function LoginForm({ onLogin, onNavigateToRegister, loading }) {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [rememberMe, setRememberMe] = useState(true);
+    const { showToast } = useToast();
 
     async function handleSubmit(event) {
         event.preventDefault();
@@ -14,7 +16,7 @@ export default function LoginForm({ onLogin, onNavigateToRegister, loading }) {
         const normalizedPassword = password.trim();
 
         if (!normalizedUsername || !normalizedPassword) {
-            window.alert('Preencha usuário e senha.');
+            showToast('Preencha usuário e senha.', 'warning');
             return;
         }
 

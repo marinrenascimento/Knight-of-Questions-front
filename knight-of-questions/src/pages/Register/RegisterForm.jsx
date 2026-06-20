@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import './RegisterForm.css';
-import loginImage from '../assets/login.jpg';
+import loginImage from '../../assets/login.jpg';
+import { useToast } from '../../components/Alerta/Toast';
 
 export default function RegisterForm({ onRegister, onNavigateToLogin, loading }) {
     const [nome, setNome] = useState('');
@@ -8,6 +9,7 @@ export default function RegisterForm({ onRegister, onNavigateToLogin, loading })
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
+    const { showToast } = useToast();
 
     async function handleSubmit(event) {
         event.preventDefault();
@@ -19,17 +21,17 @@ export default function RegisterForm({ onRegister, onNavigateToLogin, loading })
         const normalizedConfirmPassword = confirmPassword;
 
         if (!normalizedNome || !normalizedUsername || !normalizedEmail || !normalizedPassword || !normalizedConfirmPassword) {
-            window.alert('Preencha todos os campos obrigatórios.');
+            showToast('Preencha todos os campos obrigatórios.', 'warning');
             return;
         }
 
         if (normalizedPassword.length < 8) {
-            window.alert('A senha deve conter ao menos 8 caracteres.');
+            showToast('A senha deve conter ao menos 8 caracteres.', 'warning');
             return;
         }
 
         if (normalizedPassword !== normalizedConfirmPassword) {
-            window.alert('As senhas não coincidem.');
+            showToast('As senhas não coincidem.', 'warning');
             return;
         }
 

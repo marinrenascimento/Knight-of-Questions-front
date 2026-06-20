@@ -1,0 +1,114 @@
+.kq-header {
+  background-color: var(--card-bg);
+  padding: 10px 30px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 2px solid rgba(0, 0, 0, 0.1);
+  border-radius: 12px 12px 0 0;
+}
+
+.logo-placeholder {
+  color: #FFC107;
+  text-shadow: 2px 2px 0 #000, -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
+  line-height: 1.2;
+}
+
+.logo-knight {
+  font-size: 14px;
+}
+
+.logo-questions {
+  font-size: 18px;
+}
+
+.header-nav {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  font-weight: 700;
+  font-size: 16px;
+}
+
+.nav-link {
+  text-decoration: none;
+  color: var(--text-dark);
+}
+
+.nav-link:hover,
+.nav-link.active {
+  opacity: 0.8;
+  color: white
+}
+
+.nav-separator {
+  color: var(--text-dark);
+  font-weight: 300;
+}
+
+.header-profile {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  background-color: var(--bar-filled);
+  padding: 5px 15px;
+  border-radius: 20px;
+  color: white;
+}
+
+.profile-coins {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.coin-icon {
+  font-size: 24px;
+}
+
+.coin-info {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.coin-amount {
+  font-size: 12px;
+  font-weight: bold;
+}
+
+.user-rank {
+  font-size: 10px;
+  opacity: 0.9;
+}
+
+.profile-avatar {
+  background-color: white;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.avatar-icon {
+  font-size: 18px;
+}
+
+.logout-button {
+  background-color: transparent;
+  color: white;
+  border: 1px solid white;
+  border-radius: 12px;
+  padding: 4px 10px;
+  font-size: 12px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  margin-left: 5px;
+}
+
+.logout-button:hover {
+  background-color: white;
+  color: var(--text-dark);
+}

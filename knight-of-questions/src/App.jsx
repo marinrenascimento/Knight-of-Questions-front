@@ -1,27 +1,22 @@
-import { useEffect, useState } from 'react';
-
-import LoginForm from './components/LoginForm.jsx';
-import RegisterForm from './components/RegisterForm.jsx';
-import PostList from './components/PostList.jsx';
-import UserForm from './components/UserForm.jsx';
-import UserList from './components/UserList.jsx';
+import React, { useState, useEffect } from 'react';
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import LoginForm from './pages/Login/LoginForm.jsx';
+import RegisterForm from './pages/Register/RegisterForm.jsx';
+import Home from './pages/Home/Home.jsx';
+import { useToast } from './components/Alerta/Toast.jsx';
+import RelatorioMensal from './pages/RelatorioMensal/RelatorioMensal';
+import RelatorioSemanal from './pages/RelatorioSemanal/RelatorioSemanal';
 import Help from './components/Help.jsx';
-import { createUser, getPostsByUserId, getUsers, login, register } from './services/api.js';
+import { createUser, getUsers, login, register, getPontos } from './services/api.js';
 
 const STORAGE_KEY = 'aulafront_auth';
 
 function readStoredAuth() {
   try {
     const raw = localStorage.getItem(STORAGE_KEY);
-    if (!raw) {
-      return null;
-    }
-
+    if (!raw) return null;
     const parsed = JSON.parse(raw);
-    if (!parsed?.token) {
-      return null;
-    }
-
+    if (!parsed?.token) return null;
     return parsed;
   } catch {
     return null;
@@ -33,11 +28,36 @@ export default function App() {
 
   const [token, setToken] = useState(storedAuth?.token || '');
   const [currentUser, setCurrentUser] = useState(storedAuth?.user || null);
-  const [screen, setScreen] = useState('users');
+  const [screen, setScreen] = useState('home');
   const [authScreen, setAuthScreen] = useState('login');
-  const [users, setUsers] = useState([]);
-  const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [users, setUsers] = useState([]);
+  const { showToast } = useToast();
+
+  const [perfilPontos, setPerfilPontos] = useState({
+    pontos: 0,
+    nivel: 0,
+    rank: '—',
+  });
+
+  useEffect(() => {
+    if (!token) return;
+
+    async function carregarPerfil() {
+      try {
+        const dados = await getPontos(token);
+        setPerfilPontos({
+          pontos: dados.pontos ?? 0,
+          nivel: dados.nivel ?? 0,
+          rank: dados.rank ?? '—',
+        });
+      } catch {
+      }
+    }
+
+    carregarPerfil();
+  }, [token]);
+
 
   function persistAuth(nextToken, nextUser) {
     setToken(nextToken);
@@ -49,9 +69,7 @@ export default function App() {
     localStorage.removeItem(STORAGE_KEY);
     setToken('');
     setCurrentUser(null);
-    setUsers([]);
-    setPosts([]);
-    setScreen('users');
+    setPerfilPontos({ pontos: 0, nivel: 0, rank: '—' });
     setAuthScreen('login');
   }
 
@@ -60,8 +78,9 @@ export default function App() {
     try {
       const data = await login(payload);
       persistAuth(data.accessToken, data.user);
+      showToast(`Bem-vindo(a), ${data.user.nome || data.user.username}!`, 'success');
     } catch (error) {
-      window.alert(error.message);
+      showToast(error.message, 'error');
     } finally {
       setLoading(false);
     }
@@ -71,10 +90,10 @@ export default function App() {
     setLoading(true);
     try {
       await register(payload);
-      window.alert('Conta criada com sucesso! Faça login para continuar.');
+      showToast('Conta criada com sucesso! Faça login para continuar.', 'success');
       setAuthScreen('login');
     } catch (error) {
-      window.alert(error.message);
+      showToast(error.message, 'error');
     } finally {
       setLoading(false);
     }
@@ -89,22 +108,6 @@ export default function App() {
     try {
       const data = await getUsers(token);
       setUsers(data);
-    } catch (error) {
-      window.alert(error.message);
-    } finally {
-      setLoading(false);
-    }
-  }
-
-  async function loadPosts() {
-    if (!token || !currentUser?.id) {
-      return;
-    }
-
-    setLoading(true);
-    try {
-      const data = await getPostsByUserId(currentUser.id, token);
-      setPosts(data);
     } catch (error) {
       window.alert(error.message);
     } finally {
@@ -133,70 +136,50 @@ export default function App() {
       return;
     }
 
-    loadPosts();
   }, [token, screen, currentUser?.id]);
 
+  if (!token) {
+    return (
+      <main style={{
+        backgroundColor: 'var(--bg-color)',
+        minHeight: '100vh',
+        padding: '20px',
+      }
+      }>
+        {authScreen === 'login' ? (
+          <LoginForm
+            onLogin={handleLogin}
+            onNavigateToRegister={() => setAuthScreen('register')}
+            loading={loading}
+          />
+        ) : (
+          <RegisterForm
+            onRegister={handleRegister}
+            onNavigateToLogin={() => setAuthScreen('login')}
+            loading={loading}
+          />
+        )}
+      </main >
+    );
+  }
 
-    if (!token) {
-      return (
-        <main>
-          {authScreen === 'login' ? (
-            <LoginForm
-              onLogin={handleLogin}
-              onNavigateToRegister={() => setAuthScreen('register')}
-              loading={loading}
-            />
-          ) : (
-            <RegisterForm
-              onRegister={handleRegister}
-              onNavigateToLogin={() => setAuthScreen('login')}
-              loading={loading}
-            />
-          )}
-        </main>
-      );
-    }
+  const sharedProps = {
+    currentUser,
+    logout,
+    perfilPontos,
+  };
 
   return (
-    <main className="container">
-      <header className="header">
-        <h1>React Web + API de Alunos</h1>
-        <p>
-          Usuário autenticado: <strong>{currentUser?.name || currentUser?.email}</strong>
-        </p>
-      </header>
-
-      <section className="card nav-card">
-        <button type="button" onClick={() => setScreen('users')} disabled={screen === 'users'}>
-          Tela de usuários
-        </button>
-        <button type="button" onClick={() => setScreen('posts')} disabled={screen === 'posts'}>
-          Tela de posts
-        </button>
-        <button type="button" onClick={() => setScreen('help')} disabled={screen === 'help'}>
-          Ajuda
-        </button>
-        <button type="button" className="secondary" onClick={logout}>
-          Sair
-        </button>
-      </section>
-
-      {screen === 'users' ? (
-        <>
-          <UserForm onCreate={handleCreateUser} loading={loading} />
-          <UserList users={users} loading={loading} onReload={loadUsers} />
-        </>
-      ) : screen === 'help' ? (
-        <Help />
-      ) : (
-     
-        <PostList posts={posts} loading={loading} onReload={loadPosts} />
-        
-  
-      )}
-       </main>
-      );
-      
+    <BrowserRouter>
+      <main className="container">
+        <Routes>
+          <Route path="/" element={<Home {...sharedProps} />} />
+          <Route path="/semanal" element={<RelatorioSemanal {...sharedProps} />} />
+          <Route path="/mensal" element={<RelatorioMensal {...sharedProps} />} />
+          <Route path="/help" element={<Help {...sharedProps} />} />
+          <Route path="*" element={<Navigate to="/" />} />
+        </Routes>
+      </main>
+    </BrowserRouter>
+  );
 }
-
-  

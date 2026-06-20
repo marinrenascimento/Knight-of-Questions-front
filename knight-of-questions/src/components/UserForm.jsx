@@ -1,9 +1,11 @@
 import { useState } from 'react';
+import { useToast } from './Toast';
 
 export default function UserForm({ onCreate, loading }) {
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('123456');
+    const { showToast } = useToast();
 
     async function handleSubmit(event) {
         event.preventDefault();
@@ -13,7 +15,7 @@ export default function UserForm({ onCreate, loading }) {
         const normalizedPassword = password.trim();
 
         if (!normalizedName || !normalizedEmail || !normalizedPassword) {
-            window.alert('Preencha nome, e-mail e senha.');
+            showToast('Preencha nome, e-mail e senha.', 'warning');
             return;
         }
 

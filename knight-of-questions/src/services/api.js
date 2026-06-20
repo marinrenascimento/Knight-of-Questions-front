@@ -52,3 +52,22 @@ export async function register(payload) {
     });
 }
 
+export async function getPontos(token) {
+    return request('/pontos', { token });
+}
+
+export async function getHistoricoPontos(token) {
+    return request('/pontos/historico', { token });
+}
+
+export async function getOfensiva(token) {
+    return request('/ofensiva', { token });
+}
+
+export async function getTempoSessao(userId, token) {
+    return request(`/sessao/tempo/${userId}`, { token });
+}
+
+export async function getAcessosRecentes(userId, token) {
+    return request(`/acessos-recentes/${userId}`, { token });
+}
