@@ -40,6 +40,7 @@ export default function RegisterForm({ onRegister, onNavigateToLogin, loading })
             username: normalizedUsername,
             email: normalizedEmail,
             password: normalizedPassword,
+            role: 'estudante',
         });
     }
 

@@ -11,6 +11,8 @@ import relatoriosImg from '../../assets/card-relatorios.png';
 import Header from '../../components/Header/Header';
 import { getDadosMensal } from '../../services/relatorioService';
 import { getAcessosRecentes } from '../../services/api';
+import { BackpackIcon } from '../../components/HelpIcons';
+
 
 const STORAGE_KEY = 'aulafront_auth';
 
@@ -125,7 +127,7 @@ export default function Home({ currentUser, logout, perfilPontos }) {
 
                         {acessos.length === 0 ? (
                             <div className="home-recent__empty">
-                                <div className="home-recent__empty-icon">🎒</div>
+                                <BackpackIcon size={32} />
                                 <p>O diário de aventuras está vazio.</p>
                                 <span>
                                     Que tal começar uma jornada?
