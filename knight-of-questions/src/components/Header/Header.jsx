@@ -5,10 +5,9 @@ import './Header.css';
 export default function Header({ currentUser, logout, perfilPontos }) {
   const location = useLocation();
 
-  const userName = currentUser?.name || currentUser?.email || 'Visitante';
+  const userName = currentUser?.nome || currentUser?.name || currentUser?.email || 'Visitante';
   const pontos = perfilPontos?.pontos ?? '—';
   const rank = perfilPontos?.rank ?? '—';
-  const nivel = perfilPontos?.nivel ?? 0;
 
   return (
     <header className="kq-header">
@@ -30,16 +29,16 @@ export default function Header({ currentUser, logout, perfilPontos }) {
 
       <div className="header-profile">
         <div className="profile-coins">
-          <div className="coin-icon">💰</div>
+          <div className="coin-icon" aria-hidden="true">💰</div>
           <div className="coin-info">
             <span className="coin-amount">{pontos.toLocaleString('pt-BR')}</span>
-            <span className="user-rank">{rank} • Nv.{nivel} • {userName}</span>
+            <span className="user-rank">{rank} • {userName}</span>
           </div>
         </div>
         <div className="profile-avatar">
           <div className="avatar-icon">👤</div>
         </div>
-        <button className="logout-button" onClick={logout} title="Sair">
+        <button className="logout-button" onClick={logout} title="Sair" aria-label="Sair">
           Sair
         </button>
       </div>
