@@ -1,11 +1,11 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import './Help.css';
-import Header from './Header/Header.jsx';
+import Header from '../../components/Header/Header.jsx';
 import HelpEstudos from './HelpEstudos.jsx';
 import HelpConta from './HelpConta.jsx';
 import HelpPrivacidade from './HelpPrivacidade.jsx';
 import HelpFeedback from './HelpFeedback.jsx';
-import SupportModal from './SupportModal.jsx';
+import SupportModal from '../../components/SupportModal.jsx';
 import {
   BookIcon,
   UserIcon,

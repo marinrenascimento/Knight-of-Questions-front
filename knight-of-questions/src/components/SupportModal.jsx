@@ -1,4 +1,4 @@
-import { MailIcon } from './HelpIcons.jsx';
+import { MailIcon } from '../pages/Help/HelpIcons.jsx';
 
 export default function SupportModal({ onClose }) {
   return (

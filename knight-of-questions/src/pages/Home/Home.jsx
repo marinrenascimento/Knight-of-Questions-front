@@ -11,7 +11,7 @@ import relatoriosImg from '../../assets/card-relatorios.png';
 import Header from '../../components/Header/Header';
 import { getDadosMensal } from '../../services/relatorioService';
 import { getAcessosRecentes } from '../../services/api';
-import { BackpackIcon } from '../../components/HelpIcons';
+import { BackpackIcon } from '../../pages/Help/HelpIcons';
 
 
 const STORAGE_KEY = 'aulafront_auth';

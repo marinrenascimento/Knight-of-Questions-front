@@ -8,7 +8,7 @@ import RelatorioMensal from './pages/RelatorioMensal/RelatorioMensal';
 import RelatorioSemanal from './pages/RelatorioSemanal/RelatorioSemanal';
 import MinhasProvas from './pages/Avaliacoes/MinhasProvas.jsx';
 import { createUser, getUsers, login, register, getPontos } from './services/api.js';
-import Help from './components/Help.jsx';
+import Help from './pages/Help/Help.jsx';
 
 const STORAGE_KEY = 'aulafront_auth';
 

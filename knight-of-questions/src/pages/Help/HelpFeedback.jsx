@@ -1,9 +1,8 @@
-import React from 'react';
 import './Help.css';
-import Header from './Header/Header.jsx';
-import { ArrowLeftIcon, BookIcon, MessageCircleIcon } from './HelpIcons.jsx';
+import Header from '../../components/Header/Header.jsx';
+import { ArrowLeftIcon, MessageSquareIcon, MessageCircleIcon } from './HelpIcons.jsx';
 
-export default function HelpEstudos({ onBack, currentUser, logout, perfilPontos, onOpenSupport }) {
+export default function HelpFeedback({ onBack, currentUser, logout, perfilPontos, onOpenSupport }) {
   return (
     <div className="help-page-layout">
       <Header currentUser={currentUser} logout={logout} perfilPontos={perfilPontos} />
@@ -17,26 +16,26 @@ export default function HelpEstudos({ onBack, currentUser, logout, perfilPontos,
 
         <section className="help-section-title">
           <div className="help-section-icon">
-            <BookIcon size={48} />
+            <MessageSquareIcon size={48} />
           </div>
-          <h1 className="pixel-text">ESTUDOS</h1>
-          <p>Tudo sobre flashcards, questões e suas ferramentas de revisão.</p>
+          <h1 className="pixel-text">FEEDBACK</h1>
+          <p>Envie sugestões, reporte bugs ou compartilhe ideias.</p>
         </section>
 
         <section className="help-cards-list">
           <div className="help-card-item">
-            <h2>CRIANDO E GERENCIANDO DECKS</h2>
-            <p>Para criar um deck, vá em Cards &gt; + Novo Deck. Nomeie seu deck, selecione a matéria e adicione cards com frente e verso.</p>
+            <h2>REPORTAR UM BUG</h2>
+            <p>Descreva o problema encontrado, a página onde aconteceu e o dispositivo usado.</p>
           </div>
 
           <div className="help-card-item">
-            <h2>BANCO DE QUESTÕES E FILTROS</h2>
-            <p>Na seção Questões, filtre por vestibular, matéria ou dificuldade para encontrar os conteúdos que deseja estudar.</p>
+            <h2>ENVIAR SUGESTÃO DE FUNCIONALIDADE</h2>
+            <p>Envie sua ideia para melhorar a plataforma e ajudar outros estudantes.</p>
           </div>
 
           <div className="help-card-item">
-            <h2>JOGOS EDUCATIVOS</h2>
-            <p>Os jogos ajudam a reforçar o aprendizado de forma divertida e podem contribuir para o ranking.</p>
+            <h2>FEEDBACK GERAL</h2>
+            <p>Sua opinião é importante para melhorar a experiência dentro do Knight of Questions.</p>
           </div>
         </section>
 

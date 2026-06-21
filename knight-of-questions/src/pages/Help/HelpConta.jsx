@@ -1,5 +1,5 @@
 import './Help.css';
-import Header from './Header/Header.jsx';
+import Header from '../../components/Header/Header.jsx';
 import { ArrowLeftIcon, UserIcon, MessageCircleIcon } from './HelpIcons.jsx';
 
 export default function HelpConta({ onBack, currentUser, logout, perfilPontos, onOpenSupport }) {
