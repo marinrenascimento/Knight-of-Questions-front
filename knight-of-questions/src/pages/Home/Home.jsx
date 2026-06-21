@@ -61,7 +61,7 @@ export default function Home({ currentUser, logout, perfilPontos }) {
 
                 setAcessosRecentes(recentes);
 
-                const response = await fetch(`http://localhost:3000/users/view/${stored.user.id}`, {
+                const response = await fetch(`/users/view/${stored.user.id}`, {
                     headers: {
                         Authorization: `Bearer ${stored.token}`,
                     },

@@ -6,50 +6,93 @@ import Podium from './Podium';
 import RankingItem from './RankingItem';
 import UserRanking from './UserRanking';
 
-const DEMO_RANKING = [
-    {
-        id: 1,
-        position: 1,
-        nome: 'ELORIA',
-        pontos: 19000,
-        isCurrentUser: false,
-    },
-    {
-        id: 2,
-        position: 2,
-        nome: 'MARIA',
-        pontos: 16000,
-        isCurrentUser: false,
-    },
-    {
-        id: 3,
-        position: 3,
-        nome: 'EDMUND',
-        pontos: 14000,
-        isCurrentUser: false,
-    },
-    {
-        id: 4,
-        position: 4,
-        nome: 'MARIA',
-        pontos: 9000,
-        isCurrentUser: false,
-    },
-];
+import { getRanking } from '../../services/api.js';
 
-const DEMO_CURRENT_USER = {
-    position: 34,
-    nome: 'GABRIEL B.',
-    pontos: 2000,
-};
+function normalizeRankingPayload(payload) {
+    if (Array.isArray(payload)) {
+        return payload;
+    }
 
-export default function Ranking({ currentUser, logout, perfilPontos }) {
-    const [ranking] = useState(DEMO_RANKING);
-    const [loading] = useState(false);
+    if (Array.isArray(payload?.rankings)) {
+        return payload.rankings;
+    }
+
+    if (Array.isArray(payload?.data?.rankings)) {
+        return payload.data.rankings;
+    }
+
+    return [];
+}
+
+function normalizeRankingItem(usuario, fallbackIndex = 0) {
+    return {
+        id: usuario?.id ?? usuario?.userId ?? fallbackIndex,
+        userId: usuario?.userId ?? usuario?.id ?? fallbackIndex,
+        nome: usuario?.nome || usuario?.name || usuario?.username || 'Jogador',
+        name: usuario?.name || usuario?.nome || usuario?.username || 'Jogador',
+        username: usuario?.username || '',
+        email: usuario?.email || '',
+        role: usuario?.role || '',
+        criadoEm: usuario?.criado_em || usuario?.criadoEm || '',
+        pontos: Number(usuario?.pontos ?? 0),
+        nivel: usuario?.nivel ?? 0,
+        idAvatar: usuario?.id_avatar ?? usuario?.idAvatar ?? null,
+        position: Number(usuario?.position ?? fallbackIndex + 1),
+        isCurrentUser: Boolean(usuario?.isCurrentUser),
+    };
+}
+
+function sortRanking(a, b) {
+    const positionA = Number(a?.position ?? Number.POSITIVE_INFINITY);
+    const positionB = Number(b?.position ?? Number.POSITIVE_INFINITY);
+
+    if (positionA !== positionB) {
+        return positionA - positionB;
+    }
+
+    return Number(b?.pontos ?? 0) - Number(a?.pontos ?? 0);
+}
+
+export default function Ranking({ currentUser, logout, perfilPontos, token }) {
+    const [ranking, setRanking] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState('');
 
     useEffect(() => {
-        localStorage.setItem('ranking_demo_active', 'true');
-    }, []);
+        let active = true;
+
+        async function carregarRanking() {
+            setLoading(true);
+            setError('');
+
+            try {
+                const response = await getRanking(token);
+                if (!active) return;
+
+                const lista = normalizeRankingPayload(response)
+                    .map((usuario, index) => normalizeRankingItem(usuario, index + 1))
+                    .sort(sortRanking);
+
+                setRanking(lista);
+            } catch (error) {
+                if (!active) return;
+
+                console.error('Erro ao carregar ranking:', error);
+                setRanking([]);
+                setError('Não foi possível carregar o ranking no momento.');
+            } finally {
+                if (active) {
+                    setLoading(false);
+                }
+            }
+        }
+
+        carregarRanking();
+
+        return () => {
+            active = false;
+        };
+    }, [token]);
 
     const podiumUsers = useMemo(() => ranking.slice(0, 3), [ranking]);
     const currentUserRanking = useMemo(() => {
@@ -60,13 +103,23 @@ export default function Ranking({ currentUser, logout, perfilPontos }) {
             return rankedUser;
         }
 
-        return {
-            ...DEMO_CURRENT_USER,
-            nome: currentUser?.nome || currentUser?.name || DEMO_CURRENT_USER.nome,
-            userId: currentUser?.id,
-            isCurrentUser: true,
-        };
-    }, [ranking, currentUser?.id, currentUser?.nome, currentUser?.name]);
+        return currentUser
+            ? {
+                id: currentUser.id,
+                userId: currentUser.id,
+                nome: currentUser.nome || currentUser.name || 'Você',
+                username: currentUser.username,
+                email: currentUser.email,
+                role: currentUser.role,
+                criadoEm: currentUser.criado_em || currentUser.criadoEm,
+                pontos: perfilPontos?.pontos ?? 0,
+                nivel: perfilPontos?.nivel ?? 0,
+                idAvatar: currentUser.id_avatar || currentUser.idAvatar,
+                position: perfilPontos?.rank ?? '—',
+                isCurrentUser: true,
+            }
+            : null;
+    }, [ranking, currentUser, perfilPontos?.pontos, perfilPontos?.rank, perfilPontos?.nivel]);
 
     const topList = useMemo(() => ranking.slice(0, 4), [ranking]);
 
@@ -83,6 +136,8 @@ export default function Ranking({ currentUser, logout, perfilPontos }) {
                 <section className="ranking-hero">
                     {loading ? (
                         <div className="ranking-loading">Carregando ranking...</div>
+                    ) : error ? (
+                        <div className="ranking-empty">{error}</div>
                     ) : (
                         <Podium users={podiumUsers} />
                     )}
@@ -92,6 +147,8 @@ export default function Ranking({ currentUser, logout, perfilPontos }) {
                     <div className="ranking-list">
                         {loading ? (
                             <div className="ranking-empty">Carregando colocados...</div>
+                        ) : error ? (
+                            <div className="ranking-empty">{error}</div>
                         ) : topList.length > 0 ? (
                             topList.map((usuario) => (
                                 <RankingItem key={usuario.id || `${usuario.position}-${usuario.nome}`} user={usuario} />
