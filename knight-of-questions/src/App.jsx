@@ -3,6 +3,7 @@ import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import LoginForm from './pages/Login/LoginForm.jsx';
 import RegisterForm from './pages/Register/RegisterForm.jsx';
 import Home from './pages/Home/Home.jsx';
+import Ranking from './pages/Ranking/Ranking.jsx';
 import { useToast } from './components/Alerta/Toast.jsx';
 import RelatorioMensal from './pages/RelatorioMensal/RelatorioMensal';
 import RelatorioSemanal from './pages/RelatorioSemanal/RelatorioSemanal';
@@ -181,6 +182,7 @@ export default function App() {
       <main className="container">
         <Routes>
           <Route path="/" element={<Home {...sharedProps} />} />
+          <Route path="/rank" element={<Ranking {...sharedProps} />} />
           <Route path="/semanal" element={<RelatorioSemanal {...sharedProps} />} />
           <Route path="/mensal" element={<RelatorioMensal {...sharedProps} />} />
           <Route path="/help" element={<Help {...sharedProps} />} />
