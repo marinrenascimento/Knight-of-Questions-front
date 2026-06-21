@@ -146,9 +146,9 @@
 }
 
 .empty-chest {
-    font-size: 64px;
+    width: 200px;
+    height: auto;
     margin-bottom: 15px;
-    filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.1));
 }
 
 .provas-error {

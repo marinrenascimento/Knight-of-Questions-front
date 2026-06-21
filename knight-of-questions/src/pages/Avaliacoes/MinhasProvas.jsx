@@ -15,6 +15,8 @@ import {
 } from '../../services/api';
 import chestImg from '../../assets/dragon-pixel.png';
 import './MinhasProvas.css';
+import emptyBau from '../../assets/empty-bau.png';
+
 
 const STORAGE_KEY = 'aulafront_auth';
 
@@ -379,7 +381,7 @@ export default function MinhasProvas({ currentUser, logout, perfilPontos }) {
                                 <input
                                     type="text"
                                     className="kq-input"
-                                    placeholder="Digite o nome do deck"
+                                    placeholder="Digite o título da prova"
                                     value={newExamName}
                                     onChange={(e) => setNewExamName(e.target.value)}
                                     style={{ background: '#b8d0bc', border: '1px solid #7a9a82', borderRadius: '4px', color: '#555' }}
@@ -555,8 +557,9 @@ export default function MinhasProvas({ currentUser, logout, perfilPontos }) {
         <>
             {avaliacoes.length === 0 ? (
                 <div className="provas-empty">
-                    <div className="empty-chest">[]</div>
-                    <h3 className="pixel-text">Bau de Provas Vazio</h3>
+                    <img src={emptyBau} alt="Bau vazio" className="empty-chest" />
+
+                    <h3 className="pixel-text">Baú de Provas Vazio</h3>
                     <p>Que tal criar sua primeira avaliacao e comecar a jornada?</p>
                     <button className="provas-btn action-btn-green" onClick={() => setShowCreateModal(true)}>Estudar por Disciplina</button>
                 </div>
