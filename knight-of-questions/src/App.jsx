@@ -7,8 +7,8 @@ import { useToast } from './components/Alerta/Toast.jsx';
 import RelatorioMensal from './pages/RelatorioMensal/RelatorioMensal';
 import RelatorioSemanal from './pages/RelatorioSemanal/RelatorioSemanal';
 import MinhasProvas from './pages/Avaliacoes/MinhasProvas.jsx';
-import { createUser, getUsers, login, register, getPontos } from './services/api.js';
 import Help from './pages/Help/Help.jsx';
+import { login, register, getPontos, startSessao, endSessao } from './services/api.js';
 
 const STORAGE_KEY = 'aulafront_auth';
 
@@ -29,6 +29,7 @@ export default function App() {
 
   const [token, setToken] = useState(storedAuth?.token || '');
   const [currentUser, setCurrentUser] = useState(storedAuth?.user || null);
+  const [sessaoId, setSessaoId] = useState(storedAuth?.sessaoId || null);
   const [authScreen, setAuthScreen] = useState('login');
   const [loading, setLoading] = useState(false);
   const { showToast } = useToast();
@@ -57,26 +58,60 @@ export default function App() {
     carregarPerfil();
   }, [token]);
 
-
-  function persistAuth(nextToken, nextUser) {
-    setToken(nextToken);
-    setCurrentUser(nextUser);
-    localStorage.setItem(STORAGE_KEY, JSON.stringify({ token: nextToken, user: nextUser }));
-  }
-
-  function logout() {
+  function clearSession() {
     localStorage.removeItem(STORAGE_KEY);
     setToken('');
     setCurrentUser(null);
+    setSessaoId(null);
     setPerfilPontos({ pontos: 0, nivel: 0, rank: '—' });
     setAuthScreen('login');
+  }
+
+  useEffect(() => {
+    function handleSessionExpired() {
+      clearSession();
+      showToast('Sua sessão expirou. Faça login novamente.', 'warning');
+    }
+
+    window.addEventListener('auth:expired', handleSessionExpired);
+    return () => window.removeEventListener('auth:expired', handleSessionExpired);
+  }, []);
+
+  function persistAuth(nextToken, nextUser, nextSessaoId) {
+    setToken(nextToken);
+    setCurrentUser(nextUser);
+    setSessaoId(nextSessaoId);
+    localStorage.setItem(
+      STORAGE_KEY,
+      JSON.stringify({ token: nextToken, user: nextUser, sessaoId: nextSessaoId })
+    );
+  }
+
+  async function logout() {
+    if (sessaoId && token) {
+      try {
+        await endSessao(sessaoId, token);
+      } catch (error) {
+        console.error('Erro ao finalizar sessão:', error);
+      }
+    }
+    clearSession();
   }
 
   async function handleLogin(payload) {
     setLoading(true);
     try {
       const data = await login(payload);
-      persistAuth(data.accessToken, data.user);
+
+      let novaSessaoId = null;
+      try {
+        const sessao = await startSessao(data.user.id, data.accessToken);
+        novaSessaoId = sessao.id;
+      } catch (error) {
+        console.error('Erro ao iniciar sessão:', error);
+      }
+
+      persistAuth(data.accessToken, data.user, novaSessaoId);
       showToast(`Bem-vindo(a), ${data.user.nome || data.user.username}!`, 'success');
     } catch (error) {
       showToast(error.message, 'error');
