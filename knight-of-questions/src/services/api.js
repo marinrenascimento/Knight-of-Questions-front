@@ -1,5 +1,12 @@
 const API_BASE_URL = 'http://localhost:3000';
 
+export class ApiError extends Error {
+    constructor(message, status) {
+        super(message);
+        this.status = status;
+    }
+}
+
 async function request(path, { method = 'GET', body, token } = {}) {
     const headers = {
         'Content-Type': 'application/json',
@@ -18,8 +25,11 @@ async function request(path, { method = 'GET', body, token } = {}) {
     const data = await response.json().catch(() => ({}));
 
     if (!response.ok) {
+        if (response.status === 401) {
+            window.dispatchEvent(new Event('auth:expired'));
+        }
         const message = data.message || `Erro na requisição (${response.status})`;
-        throw new Error(message);
+        throw new ApiError(message, response.status);
     }
 
     return data;
@@ -31,6 +41,10 @@ export async function login(payload) {
 
 export async function getUsers(token) {
     return request('/users', { token });
+}
+
+export async function getUserById(userId, token) {
+    return request(`/users/view/${userId}`, { token });
 }
 
 export async function getPostsByUserId(userId, token) {
@@ -70,4 +84,12 @@ export async function getTempoSessao(userId, token) {
 
 export async function getAcessosRecentes(userId, token) {
     return request(`/acessos-recentes/${userId}`, { token });
+}
+
+export async function startSessao(userId, token) {
+    return request('/sessao/start', { method: 'POST', body: { user_id: userId }, token });
+}
+
+export async function endSessao(sessaoId, token) {
+    return request(`/sessao/end/${sessaoId}`, { method: 'PUT', token });
 }
