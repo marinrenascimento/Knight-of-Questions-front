@@ -63,7 +63,7 @@ export default function Home({ currentUser, logout, perfilPontos }) {
 
                 setAcessosRecentes(recentes);
 
-                const response = await fetch(`http://localhost:3000/users/view/${stored.user.id}`, {
+                const response = await fetch(`/users/view/${stored.user.id}`, {
                     headers: {
                         Authorization: `Bearer ${stored.token}`,
                     },
@@ -84,7 +84,7 @@ export default function Home({ currentUser, logout, perfilPontos }) {
     const menuCards = [
         { key: 'questoes', label: 'Questões', img: questoesImg, route: '/avaliacoes' },
         { key: 'jogos', label: 'Jogos', img: jogosImg, route: null },
-        { key: 'decks', label: 'Decks', img: decksImg, route: null },
+        { key: 'decks', label: 'Decks', img: decksImg, route: '/decks' },
         { key: 'relatorios', label: 'Relatórios', img: relatoriosImg, route: '/mensal' },
     ];
 

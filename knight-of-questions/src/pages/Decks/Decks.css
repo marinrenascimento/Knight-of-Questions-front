@@ -1,0 +1,1207 @@
+.decks-page {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    font-family: 'Inter', sans-serif;
+    padding: 20px;
+    background-color: var(--bg-color);
+}
+
+.decks-content {
+    flex: 1;
+    padding: 30px 40px;
+    background-color: #F5F7F5;
+    border-radius: 0 0 12px 12px;
+    display: flex;
+    flex-direction: column;
+    color: var(--text-dark);
+}
+
+/* Subheader Styling */
+.decks-subheader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 40px;
+    flex-wrap: wrap;
+    gap: 16px;
+}
+
+.decks-subheader__left {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.btn-back {
+    background: white;
+    border: 2px solid var(--text-dark);
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    cursor: pointer;
+    color: var(--text-dark);
+    transition: all 0.2s ease;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.btn-back:hover {
+    background: #e6ede8;
+    transform: translateX(-2px);
+}
+
+.decks-title {
+    font-size: 1.2rem;
+    color: var(--text-dark);
+    letter-spacing: 0.05em;
+    margin: 0;
+    text-transform: uppercase;
+}
+
+.decks-subheader__right {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+/* Toggle Layout Button */
+.layout-toggle {
+    display: flex;
+    border: 2px solid var(--text-dark);
+    border-radius: 8px;
+    overflow: hidden;
+    background: white;
+}
+
+.layout-toggle__btn {
+    background: none;
+    border: none;
+    padding: 8px 12px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-dark);
+}
+
+.layout-toggle__btn.active {
+    background: var(--text-dark);
+    color: white;
+}
+
+.layout-toggle__divider {
+    width: 2px;
+    background-color: var(--text-dark);
+}
+
+/* Green Buttons */
+.btn-green {
+    background-color: #0b3b2d;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 0.95rem;
+    font-weight: 600;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.15);
+}
+
+.btn-green:hover {
+    background-color: #155743;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+
+.btn-green:active {
+    transform: translateY(0);
+}
+
+/* Carousel Layout */
+.decks-carousel-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 24px;
+    flex: 1;
+    margin: 20px 0;
+    position: relative;
+    width: 100%;
+}
+
+.decks-carousel-viewport {
+    width: 100%;
+    max-width: 904px; /* (280 * 3) + (32 * 2) = 904px */
+    height: 380px;
+    overflow: hidden;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    perspective: 1200px;
+}
+
+.carousel-arrow {
+    background: none;
+    border: none;
+    font-size: 32px;
+    color: var(--text-dark);
+    cursor: pointer;
+    transition: transform 0.2s ease;
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 20;
+}
+
+.carousel-arrow:hover:not(:disabled) {
+    transform: scale(1.25);
+}
+
+.carousel-arrow:disabled {
+    opacity: 0.2;
+    cursor: not-allowed;
+}
+
+.decks-carousel-track {
+    display: flex;
+    align-items: center;
+    gap: 32px;
+    transition: transform 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+    will-change: transform;
+    height: 100%;
+    transform-style: preserve-3d;
+}
+
+/* Deck Cards Styling */
+.deck-card {
+    background-color: #aec3ae;
+    border-radius: 20px;
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    color: var(--text-dark);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    transition: all 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+    text-decoration: none;
+    position: relative;
+    cursor: pointer;
+    width: 280px;
+    height: 300px;
+    flex-shrink: 0;
+    transform-style: preserve-3d;
+    backface-visibility: hidden;
+}
+
+.deck-card__icon {
+    width: 90px;
+    height: auto;
+    margin-bottom: 16px;
+    object-fit: contain;
+}
+
+.deck-card__title {
+    font-size: 14px;
+    line-height: 1.4;
+    margin-bottom: 12px;
+    color: var(--text-dark);
+    text-transform: uppercase;
+    word-break: break-word;
+    max-width: 100%;
+}
+
+.deck-card__desc {
+    font-size: 12px;
+    line-height: 1.5;
+    margin-bottom: 16px;
+    color: #4a5d4e;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    flex: 1;
+}
+
+.deck-card__count {
+    font-size: 11px;
+    margin-top: 16px;
+    letter-spacing: 0.05em;
+    color: var(--text-dark);
+}
+
+/* Card States in Carousel (3D Coverflow styling) */
+.deck-card--side {
+    opacity: 0.6;
+    transform: scale(0.85) translateZ(-60px);
+}
+
+.deck-card--left {
+    opacity: 0.6;
+    transform: scale(0.85) rotateY(20deg) translateZ(-60px);
+}
+
+.deck-card--right {
+    opacity: 0.6;
+    transform: scale(0.85) rotateY(-20deg) translateZ(-60px);
+}
+
+.deck-card--left:hover,
+.deck-card--right:hover,
+.deck-card--side:hover {
+    opacity: 0.85;
+    transform: scale(0.9) rotateY(0deg) translateZ(0);
+}
+
+.deck-card--center {
+    transform: scale(1.1) rotateY(0deg) translateZ(60px);
+    z-index: 10;
+    box-shadow: 0 15px 35px rgba(11, 59, 45, 0.3);
+    border: 3px solid rgba(11, 59, 45, 0.2);
+    opacity: 1;
+}
+
+.deck-card--center:hover {
+    transform: scale(1.12) rotateY(0deg) translateZ(70px);
+}
+
+/* Deck Actions overlay */
+.deck-card__actions {
+    display: flex;
+    gap: 8px;
+    margin-top: 16px;
+    width: 100%;
+    justify-content: center;
+}
+
+.btn-action {
+    padding: 6px 12px;
+    font-size: 12px;
+    font-weight: 600;
+    border-radius: 6px;
+    border: 1px solid var(--text-dark);
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btn-action--study {
+    background-color: var(--text-dark);
+    color: white;
+}
+
+.btn-action--study:hover {
+    background-color: #155743;
+}
+
+.btn-action--edit {
+    background-color: white;
+    color: var(--text-dark);
+}
+
+.btn-action--edit:hover {
+    background-color: #e6ede8;
+}
+
+.btn-action--delete {
+    background-color: #fce8e6;
+    color: #c53030;
+    border-color: #feb8b0;
+}
+
+.btn-action--delete:hover {
+    background-color: #ffe3e0;
+}
+
+/* Grid Layout styling */
+.decks-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    margin-top: 20px;
+    padding: 10px 0;
+    max-width: 904px;
+    margin-left: auto;
+    margin-right: auto;
+    width: 100%;
+}
+
+@media (max-width: 960px) {
+    .decks-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 600px) {
+    .decks-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+.decks-grid .deck-card {
+    height: 300px;
+    transform: none;
+    opacity: 1;
+}
+
+.decks-grid .deck-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+}
+
+/* Loading & Empty state */
+.decks-loading {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    flex: 1;
+    font-size: 18px;
+    color: var(--text-dark);
+    gap: 16px;
+    min-height: 300px;
+}
+
+.decks-empty {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    flex: 1;
+    text-align: center;
+    padding: 40px;
+    border: 2px dashed #b6cbaf;
+    border-radius: 16px;
+    background: rgba(174, 195, 174, 0.1);
+    min-height: 250px;
+    max-width: 600px;
+    margin: 40px auto;
+}
+
+.decks-empty__icon {
+    font-size: 48px;
+    margin-bottom: 16px;
+}
+
+.decks-empty__text {
+    font-size: 16px;
+    margin-bottom: 20px;
+    color: var(--text-dark);
+    font-weight: 500;
+}
+
+/* Modal Dialog Styles */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.6);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    backdrop-filter: blur(4px);
+}
+
+.modal-content {
+    background: white;
+    border-radius: 16px;
+    padding: 30px;
+    width: 100%;
+    max-width: 550px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+    border: 3px solid var(--text-dark);
+    display: flex;
+    flex-direction: column;
+    max-height: 90vh;
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    padding-bottom: 12px;
+    border-bottom: 2px solid #e2e8f0;
+}
+
+.modal-title {
+    font-size: 1rem;
+    color: var(--text-dark);
+    margin: 0;
+}
+
+.btn-close-modal {
+    background: none;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    color: #a0aec0;
+    transition: color 0.2s;
+    line-height: 1;
+}
+
+.btn-close-modal:hover {
+    color: #4a5568;
+}
+
+.modal-body {
+    overflow-y: auto;
+    flex: 1;
+    margin-bottom: 20px;
+}
+
+.form-group {
+    margin-bottom: 18px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.form-label {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--text-dark);
+    text-transform: uppercase;
+}
+
+.form-input, .form-textarea {
+    padding: 10px 12px;
+    font-size: 14px;
+    border: 2px solid #cbd5e0;
+    border-radius: 8px;
+    font-family: inherit;
+    color: #2d3748;
+    transition: border-color 0.2s;
+}
+
+.form-input:focus, .form-textarea:focus {
+    outline: none;
+    border-color: var(--text-dark);
+}
+
+.form-textarea {
+    resize: vertical;
+    min-height: 80px;
+}
+
+.modal-footer {
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+    padding-top: 12px;
+    border-top: 2px solid #e2e8f0;
+}
+
+.btn-cancel {
+    background: #edf2f7;
+    color: #4a5568;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.btn-cancel:hover {
+    background: #e2e8f0;
+}
+
+/* Flashcards creation section inside Modal */
+.modal-section-title {
+    font-size: 12px;
+    font-weight: 800;
+    margin: 24px 0 12px;
+    padding-bottom: 6px;
+    border-bottom: 1px dashed #cbd5e0;
+    color: var(--text-dark);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.modal-cards-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    max-height: 250px;
+    overflow-y: auto;
+    padding-right: 6px;
+}
+
+.card-input-item {
+    background: #f7fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    padding: 12px;
+    position: relative;
+}
+
+.btn-remove-card-item {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    background: none;
+    border: none;
+    color: #e53e3e;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.btn-add-card-item {
+    background: none;
+    border: 2px dashed #0b3b2d;
+    color: #0b3b2d;
+    padding: 8px;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    margin-top: 10px;
+    width: 100%;
+    transition: all 0.2s;
+}
+
+.btn-add-card-item:hover {
+    background: rgba(11, 59, 45, 0.05);
+}
+
+/* Flashcard Study Session Styling (image4.png, image5.png, image7.png) */
+.study-session-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: #ececec;
+    z-index: 1000;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+}
+
+.study-session-body {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    flex: 1;
+    box-sizing: border-box;
+    position: relative;
+}
+
+.study-session-header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    margin: 20px 0 40px 0;
+    padding: 0 40px;
+    box-sizing: border-box;
+}
+
+.study-session-title {
+    font-size: 28px;
+    color: #0b3b2d;
+    text-align: center;
+    text-transform: uppercase;
+    margin: 0;
+    letter-spacing: 0.05em;
+}
+
+.study-session-btn-close {
+    position: absolute;
+    top: 20px;
+    right: 40px;
+    background-color: #0b3b2d;
+    color: #ffffff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s ease, transform 0.1s ease;
+    z-index: 10;
+}
+
+.study-session-btn-close:hover {
+    background-color: #125945;
+}
+
+.study-session-btn-close:active {
+    transform: scale(0.98);
+}
+
+.study-session-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    flex: 1;
+    padding-bottom: 50px;
+    box-sizing: border-box;
+}
+
+.study-card-viewport {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 32px;
+    margin-bottom: 40px;
+    position: relative;
+}
+
+/* Card Flipping box */
+.study-flashcard-box {
+    width: 650px;
+    height: 350px;
+    perspective: 1000px;
+    cursor: pointer;
+}
+
+.study-flashcard-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+    transform-style: preserve-3d;
+}
+
+.study-flashcard-box.flipped .study-flashcard-inner {
+    transform: rotateY(180deg);
+}
+
+.study-flashcard-front, .study-flashcard-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    border-radius: 24px;
+    background-color: #bad3be; /* light mint green */
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    padding: 24px;
+    box-sizing: border-box;
+    border: 1px solid rgba(11, 59, 45, 0.1);
+}
+
+.study-flashcard-back {
+    transform: rotateY(180deg);
+}
+
+.study-card-side-label {
+    position: absolute;
+    top: 24px;
+    left: 28px;
+    font-size: 11px;
+    color: #0b3b2d;
+    opacity: 0.6;
+    font-weight: bold;
+    letter-spacing: 0.1em;
+}
+
+.study-card-text {
+    font-size: 24px;
+    color: #0b3b2d;
+    font-weight: 500;
+    line-height: 1.5;
+    max-width: 90%;
+    margin: auto;
+    text-align: center;
+    word-break: break-word;
+}
+
+.study-card-flip-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #0b3b2d;
+    transition: transform 0.2s ease, opacity 0.2s ease;
+    margin-top: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0.7;
+}
+
+.study-card-flip-btn:hover {
+    transform: scale(1.2);
+    opacity: 1;
+}
+
+.study-flip-icon {
+    font-size: 32px;
+}
+
+/* Next / Restart Button */
+.study-next-arrow-btn {
+    background: none;
+    border: none;
+    font-size: 48px;
+    color: #0b3b2d;
+    cursor: pointer;
+    transition: transform 0.2s ease, color 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 60px;
+    height: 60px;
+}
+
+.study-next-arrow-btn:hover {
+    color: #166e54;
+    transform: scale(1.2);
+}
+
+.study-next-arrow-btn:active {
+    transform: scale(0.95);
+}
+
+/* Rating buttons at the bottom */
+.study-rating-footer {
+    display: flex;
+    justify-content: center;
+    gap: 32px;
+    width: 100%;
+}
+
+.study-rating-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    transition: transform 0.2s ease;
+    padding: 10px;
+}
+
+.study-rating-btn:hover {
+    transform: scale(1.15);
+}
+
+.study-rating-icon {
+    font-size: 36px;
+}
+
+.study-rating-label {
+    font-size: 11px;
+    color: #0b3b2d;
+    font-weight: bold;
+    letter-spacing: 0.05em;
+}
+
+/* Finished Review Box */
+.study-flashcard-box--finished {
+    background-color: #bad3be;
+    border-radius: 24px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 40px;
+    box-sizing: border-box;
+    cursor: default;
+    border: 1px solid rgba(11, 59, 45, 0.1);
+}
+
+.study-finished-chest {
+    width: 130px;
+    height: auto;
+    margin-bottom: 20px;
+    object-fit: contain;
+}
+
+.study-finished-title {
+    font-size: 26px;
+    color: #0b3b2d;
+    margin: 0;
+    text-align: center;
+}
+
+.study-finished-points {
+    font-size: 13px;
+    color: #0b3b2d;
+    margin-top: 10px;
+    font-weight: bold;
+}
+
+@media (max-width: 768px) {
+    .study-session-header {
+        margin: 10px auto 20px auto;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        padding: 0 20px;
+    }
+    .study-session-title {
+        font-size: 22px;
+    }
+    .study-session-btn-close {
+        position: absolute;
+        top: 10px;
+        right: 15px;
+        padding: 8px 14px;
+        font-size: 12px;
+    }
+    .study-card-viewport {
+        flex-direction: column;
+        gap: 16px;
+    }
+    .study-flashcard-box {
+        width: 90vw;
+        max-width: 480px;
+        height: 280px;
+    }
+    .study-next-arrow-btn {
+        transform: rotate(90deg); /* points down on mobile */
+    }
+    .study-next-arrow-btn:hover {
+        transform: rotate(90deg) scale(1.2);
+    }
+    .study-rating-footer {
+        gap: 16px;
+    }
+    .study-rating-icon {
+        font-size: 28px;
+    }
+}
+
+@keyframes bounce {
+    from { transform: translateY(0); }
+    to { transform: translateY(-10px); }
+}
+
+@media (max-width: 768px) {
+    .decks-content {
+        padding: 20px;
+    }
+    .decks-subheader {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    .decks-carousel-track {
+        height: auto;
+        flex-direction: column;
+        gap: 16px;
+    }
+    .deck-card--side {
+        display: none; /* Hide side cards on small screens for better layout */
+    }
+    .deck-card--center {
+        width: 100%;
+        max-width: 320px;
+        transform: none;
+    }
+}
+
+/* Flashcards List Screen Styling (image2.png) */
+.cards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 24px;
+    margin-top: 20px;
+}
+
+.flashcard-item-card {
+    background-color: #aec3ae;
+    border-radius: 16px;
+    padding: 20px;
+    height: 180px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    border: 1px solid rgba(11, 59, 45, 0.1);
+}
+
+.flashcard-item-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(11, 59, 45, 0.15);
+}
+
+.flashcard-item-card__subject {
+    font-size: 11px;
+    font-weight: 500;
+    color: rgba(11, 59, 45, 0.7);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.flashcard-item-card__title {
+    font-size: 11px;
+    line-height: 1.5;
+    color: var(--text-dark);
+    text-transform: uppercase;
+    text-align: center;
+    margin: auto 0;
+    font-weight: bold;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.flashcard-item-card__actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 8px;
+}
+
+.flashcard-item-card__action-btn {
+    background: rgba(11, 59, 45, 0.15);
+    border: none;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-dark);
+    cursor: pointer;
+    font-size: 14px;
+    transition: all 0.2s ease;
+}
+
+.flashcard-item-card__action-btn:hover {
+    background: var(--text-dark);
+    color: white;
+}
+
+/* Custom Confirmation Modals (image3.png) */
+.confirm-modal-content {
+    background: white;
+    border-radius: 20px;
+    padding: 36px 40px;
+    width: 90%;
+    max-width: 480px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+    border: 3px solid var(--text-dark);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.confirm-modal-title {
+    font-size: 18px;
+    font-weight: 800;
+    color: var(--text-dark);
+    line-height: 1.4;
+    margin-bottom: 8px;
+    text-transform: uppercase;
+}
+
+.modal-bracket-box {
+    position: relative;
+    padding: 18px 40px;
+    margin: 24px 0;
+    display: inline-block;
+    max-width: 100%;
+}
+
+.modal-bracket-box::before,
+.modal-bracket-box::after,
+.modal-bracket-box .corner-bl,
+.modal-bracket-box .corner-br {
+    content: '';
+    position: absolute;
+    width: 14px;
+    height: 14px;
+    border-color: var(--text-dark);
+    border-style: solid;
+}
+
+/* Top-Left */
+.modal-bracket-box::before {
+    top: 0;
+    left: 0;
+    border-width: 3px 0 0 3px;
+}
+
+/* Top-Right */
+.modal-bracket-box::after {
+    top: 0;
+    right: 0;
+    border-width: 3px 3px 0 0;
+}
+
+/* Bottom-Left */
+.modal-bracket-box .corner-bl {
+    bottom: 0;
+    left: 0;
+    border-width: 0 0 3px 3px;
+}
+
+/* Bottom-Right */
+.modal-bracket-box .corner-br {
+    bottom: 0;
+    right: 0;
+    border-width: 0 3px 3px 0;
+}
+
+.confirm-modal-target {
+    font-size: 13px;
+    color: var(--text-dark);
+    line-height: 1.6;
+    word-break: break-word;
+    display: block;
+}
+
+.confirm-modal-footer {
+    display: flex;
+    gap: 16px;
+    width: 100%;
+    justify-content: center;
+    margin-top: 8px;
+}
+
+.btn-confirm-yes, .btn-confirm-no {
+    padding: 12px 32px;
+    font-size: 15px;
+    font-weight: 700;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    border: none;
+    min-width: 120px;
+}
+
+.btn-confirm-yes {
+    background-color: #aec3ae;
+    color: var(--text-dark);
+    border: 2px solid rgba(11, 59, 45, 0.2);
+}
+
+.btn-confirm-yes:hover {
+    background-color: #9cb19c;
+    transform: translateY(-1px);
+}
+
+.btn-confirm-no {
+    background-color: #0b3b2d;
+    color: white;
+}
+
+.btn-confirm-no:hover {
+    background-color: #155743;
+    transform: translateY(-1px);
+}
+
+/* Deck registration page styling (image8.png and image9.png) */
+.deck-cadastro-box {
+    background-color: #ffffff;
+    border: 1px solid rgba(11, 59, 45, 0.15);
+    border-radius: 16px;
+    padding: 40px;
+    width: 100%;
+    max-width: 900px;
+    box-sizing: border-box;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.05);
+}
+
+.btn-cadastrar-novo-card {
+    background-color: #103329;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 15px 25px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 25px;
+    transition: background-color 0.2s ease, transform 0.1s ease;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.btn-cadastrar-novo-card:hover {
+    background-color: #164a3b;
+}
+
+.btn-cadastrar-novo-card:active {
+    transform: scale(0.98);
+}
+
+.cadastro-cards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 15px;
+    margin-top: 15px;
+    max-height: 300px;
+    overflow-y: auto;
+    padding: 5px;
+}
+
+.cadastro-card-item {
+    background-color: #bad3be;
+    border: 1px solid #99c2a2;
+    border-radius: 12px;
+    padding: 15px;
+    position: relative;
+    min-height: 100px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    box-sizing: border-box;
+}
+
+.cadastro-card-topic {
+    font-size: 10px;
+    color: #4b6653;
+    font-weight: 600;
+    text-transform: uppercase;
+    align-self: flex-start;
+}
+
+.cadastro-card-front-text {
+    font-size: 14px;
+    font-weight: bold;
+    color: #0b3b2d;
+    margin: 10px 0 0 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.btn-remove-cadastro-card {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: none;
+    border: none;
+    color: #b71c1c;
+    font-size: 20px;
+    cursor: pointer;
+    padding: 0;
+    line-height: 1;
+    transition: transform 0.1s ease;
+}
+
+.btn-remove-cadastro-card:hover {
+    transform: scale(1.1);
+}

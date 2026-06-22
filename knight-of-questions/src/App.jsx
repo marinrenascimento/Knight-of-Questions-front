@@ -3,11 +3,13 @@ import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import LoginForm from './pages/Login/LoginForm.jsx';
 import RegisterForm from './pages/Register/RegisterForm.jsx';
 import Home from './pages/Home/Home.jsx';
+import Ranking from './pages/Ranking/Ranking.jsx';
 import { useToast } from './components/Alerta/Toast.jsx';
 import RelatorioMensal from './pages/RelatorioMensal/RelatorioMensal';
 import RelatorioSemanal from './pages/RelatorioSemanal/RelatorioSemanal';
 import MinhasProvas from './pages/Avaliacoes/MinhasProvas.jsx';
 import Help from './pages/Help/Help.jsx';
+import Decks from './pages/Decks/Decks.jsx';
 import {
   login,
   register,
@@ -63,6 +65,11 @@ export default function App() {
     }
 
     carregarPerfil();
+
+    window.addEventListener('points:updated', carregarPerfil);
+    return () => {
+      window.removeEventListener('points:updated', carregarPerfil);
+    };
   }, [token]);
 
   function clearSession() {
@@ -175,6 +182,7 @@ export default function App() {
     currentUser,
     logout,
     perfilPontos,
+    token,
   };
 
   return (
@@ -182,6 +190,8 @@ export default function App() {
       <main className="container">
         <Routes>
           <Route path="/" element={<Home {...sharedProps} />} />
+          <Route path="/decks" element={<Decks {...sharedProps} />} />
+          <Route path="/rank" element={<Ranking {...sharedProps} />} />
           <Route path="/semanal" element={<RelatorioSemanal {...sharedProps} />} />
           <Route path="/mensal" element={<RelatorioMensal {...sharedProps} />} />
           <Route path="/avaliacoes" element={<MinhasProvas {...sharedProps} />} />
