@@ -8,6 +8,7 @@ import { useToast } from './components/Alerta/Toast.jsx';
 import RelatorioMensal from './pages/RelatorioMensal/RelatorioMensal';
 import RelatorioSemanal from './pages/RelatorioSemanal/RelatorioSemanal';
 import Help from './components/Help.jsx';
+import Decks from './pages/Decks/Decks.jsx';
 import {
   login,
   register,
@@ -63,6 +64,11 @@ export default function App() {
     }
 
     carregarPerfil();
+
+    window.addEventListener('points:updated', carregarPerfil);
+    return () => {
+      window.removeEventListener('points:updated', carregarPerfil);
+    };
   }, [token]);
 
   function clearSession() {
@@ -183,6 +189,7 @@ export default function App() {
       <main className="container">
         <Routes>
           <Route path="/" element={<Home {...sharedProps} />} />
+          <Route path="/decks" element={<Decks {...sharedProps} />} />
           <Route path="/rank" element={<Ranking {...sharedProps} />} />
           <Route path="/semanal" element={<RelatorioSemanal {...sharedProps} />} />
           <Route path="/mensal" element={<RelatorioMensal {...sharedProps} />} />
