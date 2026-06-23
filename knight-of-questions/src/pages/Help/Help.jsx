@@ -8,7 +8,7 @@ import HelpFeedback from './HelpFeedback.jsx';
 import SupportModal from '../../components/SupportModal.jsx';
 import {
   BookIcon,
-  // UserIcon,
+  UserIcon,
   ShieldIcon,
   MessageSquareIcon,
   MessageCircleIcon
@@ -75,12 +75,12 @@ export default function Help({ currentUser, logout, perfilPontos }) {
             <span className="help-option-text">ESTUDOS</span>
           </button>
 
-          {/* <button className="help-option-btn" onClick={() => setTela('conta')}>
+          <button className="help-option-btn" onClick={() => setTela('conta')}>
             <span className="help-option-icon">
               <UserIcon size={36} />
             </span>
             <span className="help-option-text">CONTA</span>
-          </button> */}
+          </button>
 
           <button className="help-option-btn" onClick={() => setTela('privacidade')}>
             <span className="help-option-icon">
