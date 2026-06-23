@@ -30,8 +30,8 @@ export default function Header({ currentUser, logout, perfilPontos }) {
         <div className="profile-coins">
           <div className="coin-icon" aria-hidden="true">💰</div>
           <div className="coin-info">
-            <span className="coin-amount">{pontos.toLocaleString('pt-BR')}</span>
-            <span className="user-rank">{rank} • {userName}</span>
+            <span className="coin-amount">{userName}</span>
+            <span className="user-rank">{rank} • {pontos.toLocaleString('pt-BR')}</span>
           </div>
         </div>
         <Link to="/user" className="profile-avatar">
