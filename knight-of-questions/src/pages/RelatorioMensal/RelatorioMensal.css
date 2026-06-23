@@ -50,6 +50,29 @@
   font-size: 24px;
 }
 
+.filter-btn:hover {
+  transform: rotate(180deg);
+}
+
+/* Toggle button for switching reports */
+.toggle-btn {
+  background-color: var(--bar-filled);
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 35px;
+  height: 35px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  margin-left: 8px;
+}
+
+.toggle-icon {
+  font-size: 20px;
+}
+
 .report-title {
   font-size: 16px;
   color: var(--text-dark);

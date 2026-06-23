@@ -42,7 +42,7 @@ export default function RelatorioSemanal({ currentUser, logout, perfilPontos }) 
       }
     }
     carregar();
-  }, []);
+  }, [currentUser?.id]);
 
   return (
     <div className="page-layout">
@@ -51,13 +51,13 @@ export default function RelatorioSemanal({ currentUser, logout, perfilPontos }) 
       <main className="report-content">
         <div className="report-header">
           <div className="report-title-area">
-            <button className="back-btn" onClick={() => navigate('/')}>
-              <span className="back-icon">◀</span>
+            <button className="back-btn" onClick={() => navigate('/')} title="Sair (Home)">
+              <span className="back-icon">✖</span>
             </button>
             <h1 className="pixel-text report-title">RELATÓRIO SEMANAL</h1>
           </div>
-          <button className="filter-btn" onClick={() => window.location.reload()} title="Atualizar dados">
-            <span className="filter-icon">↻</span>
+          <button className="toggle-btn" onClick={() => navigate('/mensal')} title="Próximo relatório (Mensal)">
+            <span className="toggle-icon">⏭</span>
           </button>
         </div>
 
