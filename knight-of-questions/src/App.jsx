@@ -10,6 +10,7 @@ import RelatorioSemanal from './pages/RelatorioSemanal/RelatorioSemanal';
 import MinhasProvas from './pages/Avaliacoes/MinhasProvas.jsx';
 import Help from './pages/Help/Help.jsx';
 import Decks from './pages/Decks/Decks.jsx';
+import User from "./pages/User/User.jsx";
 import {
   login,
   register,
@@ -197,6 +198,7 @@ export default function App() {
           <Route path="/avaliacoes" element={<MinhasProvas {...sharedProps} />} />
           <Route path="/help" element={<Help {...sharedProps} />} />
           <Route path="*" element={<Navigate to="/" />} />
+          <Route path="/user" element={<User {...sharedProps} />} />
         </Routes>
       </main>
     </BrowserRouter>

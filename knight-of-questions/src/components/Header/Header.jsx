@@ -34,9 +34,9 @@ export default function Header({ currentUser, logout, perfilPontos }) {
             <span className="user-rank">{rank} • {userName}</span>
           </div>
         </div>
-        <div className="profile-avatar">
+        <Link to="/user" className="profile-avatar">
           <div className="avatar-icon">👤</div>
-        </div>
+        </Link>
         <button className="logout-button" onClick={logout} title="Sair" aria-label="Sair">
           Sair
         </button>
