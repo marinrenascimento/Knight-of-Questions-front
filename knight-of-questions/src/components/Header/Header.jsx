@@ -1,5 +1,6 @@
 import { Link, useLocation } from 'react-router-dom';
 import './Header.css';
+import knightImg from '../../assets/icon-user.png';
 
 export default function Header({ currentUser, logout, perfilPontos }) {
   const location = useLocation();
@@ -35,7 +36,9 @@ export default function Header({ currentUser, logout, perfilPontos }) {
           </div>
         </div>
         <Link to="/user" className="profile-avatar">
-          <div className="avatar-icon">👤</div>
+          <div className="icon-avatar">
+            <img src={knightImg} alt="Knight of Questions" />
+          </div>
         </Link>
         <button className="logout-button" onClick={logout} title="Sair" aria-label="Sair">
           Sair

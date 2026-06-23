@@ -1,5 +1,5 @@
 import Header from '../../components/Header/Header';
-import knightImg from '../../assets/home-knight.png';
+import knightImg from '../../assets/icon-user.png';
 import './User.css';
 
 export default function User({
@@ -49,40 +49,6 @@ export default function User({
                     <div className="user-stat-card">
                         <h3>Rank</h3>
                         <span>{perfilPontos?.rank ?? '—'}</span>
-                    </div>
-                </div>
-
-                <div className="user-placeholder">
-                    <h2>🏰 Salão do Herói</h2>
-
-                    <p>
-                        Esta área será expandida em futuras versões do sistema.
-                    </p>
-
-                    <div className="user-features">
-                        <div className="feature-card">
-                            🏆 Conquistas
-                        </div>
-
-                        <div className="feature-card">
-                            🎖️ Medalhas
-                        </div>
-
-                        <div className="feature-card">
-                            📈 Estatísticas
-                        </div>
-
-                        <div className="feature-card">
-                            📚 Histórico de Estudos
-                        </div>
-
-                        <div className="feature-card">
-                            ⚔️ Progressão
-                        </div>
-
-                        <div className="feature-card">
-                            🎨 Customização
-                        </div>
                     </div>
                 </div>
             </div>
