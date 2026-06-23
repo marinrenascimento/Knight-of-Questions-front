@@ -90,21 +90,21 @@ export default function Home({ currentUser, logout, perfilPontos }) {
 
     const acessos = [];
 
-    if (acessosRecentes?.deck_recente) {
+    if (acessosRecentes?.avaliacao_recente) {
         acessos.push({
-            id: acessosRecentes.deck_recente.id,
-            titulo: acessosRecentes.deck_recente.deck_nome,
-            descricao: acessosRecentes.deck_recente.deck_descricao,
-            tipo: 'Deck',
+            id: acessosRecentes.avaliacao_recente.id_avaliacao || acessosRecentes.avaliacao_recente.id,
+            titulo: acessosRecentes.avaliacao_recente.avaliacao_titulo || acessosRecentes.avaliacao_recente.titulo || 'Última Avaliação',
+            tipo: 'avaliacao',
+            route: '/avaliacoes',
         });
     }
 
-    if (acessosRecentes?.avaliacao_recente) {
+    if (acessosRecentes?.deck_recente) {
         acessos.push({
-            id: acessosRecentes.avaliacao_recente.id,
-            titulo: acessosRecentes.avaliacao_recente.nome,
-            descricao: 'Avaliação',
-            tipo: 'Avaliação',
+            id: acessosRecentes.deck_recente.id_deck || acessosRecentes.deck_recente.id,
+            titulo: acessosRecentes.deck_recente.deck_nome || acessosRecentes.deck_recente.nome || 'Último Deck',
+            tipo: 'deck',
+            route: '/decks',
         });
     }
 
@@ -136,18 +136,21 @@ export default function Home({ currentUser, logout, perfilPontos }) {
                         ) : (
                             acessos.map((item) => (
                                 <button
-                                    key={item.id}
+                                    key={`${item.tipo}-${item.id}`}
                                     className="home-recent__card"
+                                    onClick={() => navigate(item.route)}
                                 >
                                     <div className="home-recent__card-icon">
                                         {item.tipo === 'deck' ? '📚' : '📜'}
                                     </div>
 
                                     <div className="home-recent__card-content">
-                                        <h4 className="home-recent__title">{item.tipo === 'deck' ? 'Último Deck' : 'Última Avaliação'}</h4>
-                                        <h2 className="pixel-text section-title">
+                                        <span className="home-recent__card-label">
+                                            {item.tipo === 'deck' ? 'Último Deck' : 'Última Avaliação'}
+                                        </span>
+                                        <h4 className="home-recent__card-title">
                                             {item.titulo}
-                                        </h2>
+                                        </h4>
                                     </div>
                                 </button>
                             ))
