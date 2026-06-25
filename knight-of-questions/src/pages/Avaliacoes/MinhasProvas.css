@@ -685,7 +685,7 @@
 .readonly-alt,
 .alt-edit-row {
     display: grid;
-    grid-template-columns: 42px 1fr;
+    grid-template-columns: 24px 1fr 32px;
     align-items: center;
     gap: 10px;
 }
@@ -1066,4 +1066,51 @@
 .btn-confirm-no:hover {
     background-color: #155743;
     transform: translateY(-1px);
+}
+
+.alt-remove-btn {
+    width: 28px;
+    height: 28px;
+    border: none;
+    border-radius: 50%;
+    background-color: #9f1d1d;
+    color: #ffffff;
+    font-size: 12px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background-color 0.2s, transform 0.1s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.alt-remove-btn:hover:not(:disabled) {
+    background-color: #7f1717;
+    transform: scale(1.1);
+}
+
+.alt-remove-btn:disabled {
+    background-color: #d1d5db;
+    color: #9ca3af;
+    cursor: not-allowed;
+}
+
+.alt-add-btn {
+    width: 100%;
+    padding: 10px;
+    border: 2px dashed #aec3ae;
+    border-radius: 8px;
+    background-color: transparent;
+    color: #0b3b2d;
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    margin-top: 4px;
+}
+
+.alt-add-btn:hover {
+    background-color: rgba(11, 59, 45, 0.06);
+    border-color: #0b3b2d;
 }
