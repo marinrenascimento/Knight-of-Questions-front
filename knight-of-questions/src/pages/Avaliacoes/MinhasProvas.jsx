@@ -428,7 +428,7 @@ export default function MinhasProvas({ currentUser, logout, perfilPontos }) {
                         <button className="close-btn" style={{ position: 'absolute', right: '15px' }} onClick={() => setShowManualExamModal(false)}>&times;</button>
                     </div>
 
-                    <form onSubmit={handleSaveManualExam} className="kq-modal-form" style={{ background: '#fff', border: '1px solid #000', borderRadius: '12px', padding: '25px', marginTop: '15px' }}>
+                    <form onSubmit={handleSaveManualExam} className="kq-modal-form" style={{ background: '#fff', borderRadius: '12px', padding: '25px', marginTop: '15px' }}>
                         <div style={{ display: 'flex', gap: '15px', alignItems: 'flex-end', marginBottom: '25px' }}>
                             <div className="form-group" style={{ flex: 1, marginBottom: 0 }}>
                                 <label className="pixel-text label-sm" style={{ fontWeight: 'bold', color: '#000', marginBottom: '5px' }}>Nome da prova</label>
