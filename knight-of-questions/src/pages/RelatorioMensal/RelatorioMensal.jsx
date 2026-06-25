@@ -77,7 +77,7 @@ export default function RelatorioMensal({ currentUser, logout, perfilPontos }) {
           <>
             <div className="summary-cards-row">
               <SummaryCard icon="🕒" value={dados.horasEstudo} label="Horas de uso total" />
-              <SummaryCard icon="🎯" value={String(dados.questoesRespondidas)} label="Questões este mês" />
+              <SummaryCard icon="🎯" value={String(dados.questoesRespondidas)} label="Questões acertadas este mês" />
               <SummaryCard icon="⭐" value={String(dados.pontos)} label={`Pontos • Nível ${dados.nivel}`} />
               <SummaryCard icon="🔥" value={dados.sequenciaDias} label="Sequência atual" />
             </div>

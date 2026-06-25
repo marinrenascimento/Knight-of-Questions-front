@@ -123,7 +123,7 @@ export async function getDadosSemanal(token, userId) {
   const chartData = agruparPorDiaSemana(historico);
 
   const atividadesData = [
-    { label: 'Questões respondidas', value: questoesRespondidas, icon: '📝' },
+    { label: 'Questões acertadas', value: questoesRespondidas, icon: '📝' },
     { label: 'Flashcards revisados', value: flashcardsRevisados, icon: '🃏' },
     { label: 'Jogos jogados', value: jogosFeitos, icon: '🎮' },
   ];
@@ -165,7 +165,7 @@ export async function getDadosMensal(token, userId) {
   const chartData = agruparPorMes(historico);
 
   const atividadesData = [
-    { label: 'Questões respondidas', value: questoesRespondidas, icon: '📝' },
+    { label: 'Questões acertadas', value: questoesRespondidas, icon: '📝' },
     { label: 'Flashcards revisados', value: flashcardsRevisados, icon: '🃏' },
     { label: 'Jogos jogados', value: jogosFeitos, icon: '🎮' },
   ];

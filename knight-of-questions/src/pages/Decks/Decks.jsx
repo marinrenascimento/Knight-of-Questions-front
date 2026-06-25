@@ -947,7 +947,7 @@ export default function Decks({ currentUser, logout, perfilPontos }) {
                           className="form-input"
                           value={deckDescricao}
                           onChange={(e) => setDeckDescricao(e.target.value)}
-                          placeholder="Digite o nome do deck"
+                          placeholder="Digite a descrição do deck"
                           style={{
                             backgroundColor: '#bad3be',
                             border: '1px solid #99c2a2',

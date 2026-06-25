@@ -1,13 +1,14 @@
 import Header from '../../components/Header/Header';
 import knightImg from '../../assets/icon-user.png';
+import cavloImg from '../../assets/cavlo.png';
 import './User.css';
 
 const AVATAR_LIST = [
-    { id: 1, name: 'Cavaleiro', image: knightImg },
-    { id: 2, name: 'Infiltrador', image: null },
+    { id: 1, name: 'Cavaleiro', image: cavloImg  },
+    { id: 2, name: 'Bruxa', image: null },
     { id: 3, name: 'Guerreira', image: null },
     { id: 4, name: 'Mago', image: null },
-    { id: 5, name: 'Gladiador', image: null },
+    { id: 5, name: 'Elfo', image: null },
 ];
 
 export default function User({

@@ -623,7 +623,7 @@ export default function MinhasProvas({ currentUser, logout, perfilPontos }) {
 
                     <h3 className="pixel-text">Baú de Provas Vazio</h3>
                     <p>Que tal criar sua primeira avaliação e começar a jornada?</p>
-                    <button className="provas-btn action-btn-green" onClick={() => setShowCreateModal(true)}>Estudar por Disciplina</button>
+                    <button className="provas-btn" onClick={() => setShowManualExamModal(true)}>Criar Nova Prova</button>
                 </div>
             ) : (
                 <div className="provas-grid">
@@ -673,12 +673,12 @@ export default function MinhasProvas({ currentUser, logout, perfilPontos }) {
                             <span>{difficultyLabels[question.nivel_dificuldade] || 'Facil'}</span>
                             <div className="question-card-actions">
                                 {canManageQuestions && (
-                                    <>
-                                        <button title="Editar" onClick={() => openQuestionModal('edit', question)}>E</button>
-                                        <button title="Excluir" onClick={() => openQuestionModal('delete', question)}>X</button>
+                                    <>aqui
+                                        <button title="Editar" onClick={() => openQuestionModal('edit', question)}>✏️</button>
+                                        <button title="Excluir" onClick={() => openQuestionModal('delete', question)}>🗑️</button>
                                     </>
                                 )}
-                                <button title="Visualizar" onClick={() => openQuestionModal('view', question)}>V</button>
+                                <button title="Visualizar" onClick={() => openQuestionModal('view', question)}>👁️</button>
                             </div>
                         </div>
                     </article>
@@ -691,9 +691,7 @@ export default function MinhasProvas({ currentUser, logout, perfilPontos }) {
         <div className="study-view">
             <div className="study-title pixel-text">{activeExam.titulo.toUpperCase()}</div>
             <div className="study-layout">
-                <aside className="study-notes">
-                    <strong className="pixel-text">ANOTACOES</strong>
-                    {Array.from({ length: 8 }).map((_, index) => <span key={index}></span>)}
+                <aside>
                 </aside>
                 <main className="study-questions">
                     {activeExam.perguntas.map((question, index) => (

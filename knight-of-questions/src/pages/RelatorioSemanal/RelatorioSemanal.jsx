@@ -78,7 +78,7 @@ export default function RelatorioSemanal({ currentUser, logout, perfilPontos }) 
           <>
             <div className="summary-cards-row">
               <SummaryCard icon="🕒" value={dados.horasEstudo} label="Horas de uso total" />
-              <SummaryCard icon="🎯" value={String(dados.questoesRespondidas)} label="Questões esta semana" />
+              <SummaryCard icon="🎯" value={String(dados.questoesRespondidas)} label="Questões acertadas esta semana" />
               <SummaryCard icon="⭐" value={String(dados.pontos)} label={`Pontos • Nível ${dados.nivel}`} />
               <SummaryCard icon="🔥" value={dados.sequenciaDias} label="Sequência atual" />
             </div>
